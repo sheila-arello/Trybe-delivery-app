@@ -4,6 +4,5 @@ reportWebVitals.js
 setupTests.js
 .gitattributes
 src/index.js
-src/index.css
 build/*
 jest.config.js
