@@ -5,43 +5,20 @@ function Login() {
   return (
     <div>
       <img src={ caneca } alt="caneca" />
-      <div className="flex items-center justify-center">
-        <h1 className="text-white font-bold mt-10">Vamos tomar uma?</h1>
+      <div>
+        <h1>Vamos tomar uma?</h1>
       </div>
-      <div className="flex flex-col gap-10 mt-10 p-6">
-        <div className="flex flex-col items-center border-b border-white py-2 gap-10">
+      <div>
+        <div>
           <input
-            className="
-        appearance-none
-        bg-transparent
-        border-none
-        text-gray-700
-        mr-3 py-1
-        px-2
-        leading-tight
-        focus:outline-none"
             type="text"
             placeholder="Login"
             aria-label="Full name"
             id="common_login__input-email"
           />
         </div>
-        <div
-          className="
-        flex flex-col items-center
-        border-b border-white
-        py-2 gap-10"
-        >
+        <div>
           <input
-            className="
-        appearance-none
-        bg-transparent
-        border-none
-        text-gray-700
-        mr-3 py-1
-        px-2
-        leading-tight
-        focus:outline-none"
             type="text"
             placeholder="Password"
             aria-label="Full name"
