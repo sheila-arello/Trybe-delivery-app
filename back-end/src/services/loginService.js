@@ -10,13 +10,13 @@ module.exports = {
     const hashedPwd = md5(password);
     const user = await User.findOne({ where: { email } });
   
-    if (!user || user.password !== hashedPwd) {
+    // if (!user || user.password !== hashedPwd) {
       // const error = new Error('Not found');
       // error.name = 'invalid login';
       // throw error;
-      if (!user || user.password !== hashedPwd) {
-        throw new CustomError(404, 'Not found');
-      }
+    // }
+    if (!user || user.password !== hashedPwd) {
+      throw new CustomError(404, 'Not found');
     }
 
     const payload = {
