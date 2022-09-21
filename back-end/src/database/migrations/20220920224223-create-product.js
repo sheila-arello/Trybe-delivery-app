@@ -21,11 +21,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
         field: 'url_image',
+        defaultValue: '',
       },
     });
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface, _Sequelize) => {
     await queryInterface.dropTable('products');
   }
 };
