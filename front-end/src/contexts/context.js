@@ -1,19 +1,16 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useMemo } from 'react';
+
 import propTypes from 'prop-types';
 
 const context = createContext();
 
 export default function Provider(props) {
   const [state, setState] = useState();
+  const teste = useMemo(() => ({ state, setState }), [state]);
   const { children } = props;
 
-  const states = {
-    state,
-    setState,
-  };
-
   return (
-    <context.Provider value={ states }>
+    <context.Provider value={ teste }>
       {children}
     </context.Provider>
   );
