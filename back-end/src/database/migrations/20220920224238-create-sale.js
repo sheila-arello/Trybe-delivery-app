@@ -48,7 +48,7 @@ module.exports = {
       },
       saleDate: {
         allowNull: false,
-        type: Sequelize.DATETIME,
+        type: Sequelize.DATE,
         field: 'sale_date',
       },
       status: {
@@ -58,7 +58,7 @@ module.exports = {
     });
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface, _Sequelize) => {
     await queryInterface.dropTable('sales');
   }
 };
