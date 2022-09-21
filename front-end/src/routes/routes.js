@@ -5,7 +5,7 @@ import Login from '../pages/login/Login';
 function Routes() {
   return (
     <Switch>
-      <Route path="/login" component={ Login } />
+      <Route path="/" component={ Login } />
     </Switch>
   );
 }
