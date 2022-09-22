@@ -14,7 +14,7 @@ function Login() {
             type="text"
             placeholder="Login"
             aria-label="Full name"
-            id="common_login__input-email"
+            data-testid="common_login__input-email"
           />
         </div>
         <div>
@@ -22,7 +22,7 @@ function Login() {
             type="text"
             placeholder="Password"
             aria-label="Full name"
-            id="common_login__input-password"
+            data-testid="common_login__input-password"
           />
         </div>
         <button
@@ -31,7 +31,7 @@ function Login() {
          hover:text-white py-2 px-4 border border-yellow-400
          hover:border-transparent rounded"
           type="button"
-          id="common_login__button-login"
+          data-testid="common_login__button-login"
         >
           Login
         </button>
@@ -41,7 +41,7 @@ function Login() {
          hover:text-white py-2 px-4 border border-yellow-400
          hover:border-transparent rounded"
           type="button"
-          id="common_login__button-register"
+          data-testid="common_login__button-register"
         >
           Ainda não tenho conta
         </button>
@@ -51,7 +51,3 @@ function Login() {
 }
 
 export default Login;
-
-// : common_login__input-email
-// - 2: common_login__input-password
-// - 3: common_login__button-login
