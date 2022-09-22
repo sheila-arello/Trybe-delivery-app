@@ -1,7 +1,10 @@
 const errorTreatment = async (err, _req, res, next) => {
   const { status, message } = err;
 
-  res.status(status).json({ message });
+  const code = status || 500;
+  const info = message || 'Internal Server Error';
+
+  res.status(code).json({ message: info });
 
   next();
 };
