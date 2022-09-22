@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL(4, 2),
     urlImage: DataTypes.STRING,
-    role: DataTypes.STRING,
   }, {
     timestamps: false,
     tableName: 'products',
