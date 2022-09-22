@@ -42,7 +42,7 @@ function Login() {
             placeholder="Login"
             aria-label="Full name"
             name="email"
-            value={login.email}
+            value={ login.email }
             data-testid="common_login__input-email"
             onChange={ handleChange }
           />
