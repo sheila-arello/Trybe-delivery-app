@@ -11,7 +11,7 @@ const registerSchema = Joi.object({
     }),
 
   email: Joi.string()
-    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'br', 'org'] } })
     .required()
     .messages({
       'string.email': '422|email must be a valid format',
