@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import caneca from '../../images/caneca.svg';
 import { requestLogin } from '../../services/requests';
+import validate from '../../utils/validate';
 
 function Login(props) {
   const { history } = props;
@@ -23,12 +24,11 @@ function Login(props) {
   };
 
   const validateLogin = () => {
-    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi;
-    const isEmailValid = emailRegex.test(login.email);
-    const lengthPassword = 6;
-    const isPasswordValid = login.password.length >= lengthPassword;
+    const { email, password } = login;
 
-    if (isEmailValid && isPasswordValid) {
+    const isLoginValid = validate.login(email, password);
+
+    if (isLoginValid) {
       setButton(false);
     } else {
       setButton(true);
@@ -127,7 +127,9 @@ function Login(props) {
             Ainda não tenho conta
           </button>
         </form>
+
         {
+          // Refatorar span com a biblioteca de "alert"
           error && (
             <span
               className="error"
