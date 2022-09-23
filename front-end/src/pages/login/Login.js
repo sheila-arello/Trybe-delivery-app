@@ -38,8 +38,7 @@ function Login(props) {
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     try {
-      const token = await requestLogin('/login', login);
-      const { response } = token;
+      const { response } = await requestLogin('/login', login);
 
       setInfo({ ...response });
       setError(false);
@@ -72,6 +71,9 @@ function Login(props) {
   useEffect(() => {
     validateLogin();
   }, [login]);
+
+  useEffect(() => info.token.length > 0
+    && localStorage.setItem('info', JSON.stringify(info)), [info]);
 
   return (
     <div>
