@@ -1,3 +1,11 @@
 body {
   background-color: black;
 }
+
+.error {
+  background-color: white;
+}
+
+.cadastro {
+  background-color: white;
+}
