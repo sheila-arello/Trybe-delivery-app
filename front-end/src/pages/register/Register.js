@@ -11,6 +11,7 @@ export default function Register(props) {
     password: '',
   });
   const [button, setButton] = useState(true);
+  const [error, setError] = useState(false);
 
   const handleChange = ({ target: { name, value } }) => {
     setRegister({ ...register, [name]: value });
@@ -21,8 +22,10 @@ export default function Register(props) {
     try {
       await requestPost('/register', register);
       history.push('/customer/products');
+      setError(false);
     } catch (err) {
       console.log(err);
+      setError(true);
     }
   };
 
@@ -77,6 +80,19 @@ export default function Register(props) {
           Cadastrar
         </button>
       </form>
+      {
+        // Refatorar span com a biblioteca de "alert"
+        error && (
+          <span
+            className="error"
+            data-testid="common_register__element-invalid_register"
+          >
+
+            Usuário já existe
+
+          </span>
+        )
+      }
     </div>
   );
 }
@@ -87,5 +103,3 @@ Register.propTypes = {
 
   }).isRequired,
 };
-
-// - 10: common_register__element-invalid_register [Elemento oculto (Mensagens de erro)]
