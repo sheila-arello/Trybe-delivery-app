@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import propTypes from 'prop-types';
+import { requestPost } from '../../services/requests';
 import validate from '../../utils/validate';
 
-export default function Register() {
+export default function Register(props) {
+  const { history } = props;
   const [register, setRegister] = useState({
     name: '',
     email: '',
@@ -11,6 +14,16 @@ export default function Register() {
 
   const handleChange = ({ target: { name, value } }) => {
     setRegister({ ...register, [name]: value });
+  };
+
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+    try {
+      await requestPost('/register', register);
+      history.push('/customer/products');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const validateRegister = () => {
@@ -31,7 +44,7 @@ export default function Register() {
   return (
     <div className="cadastro">
       <h2>Cadastro</h2>
-      <form>
+      <form onSubmit={ handleSubmit }>
         <input
           type="text"
           placeholder="Seu nome"
@@ -68,8 +81,11 @@ export default function Register() {
   );
 }
 
-// common_register__input-name
-// - 7: common_register__input-email
-// - 8: common_register__input-password
-// - 9: common_register__button-register
+Register.propTypes = {
+  history: propTypes.shape({
+    push: propTypes.func,
+
+  }).isRequired,
+};
+
 // - 10: common_register__element-invalid_register [Elemento oculto (Mensagens de erro)]

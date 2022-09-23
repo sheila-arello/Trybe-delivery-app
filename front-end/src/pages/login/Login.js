@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import caneca from '../../images/caneca.svg';
-import { requestLogin } from '../../services/requests';
+import { requestPost } from '../../services/requests';
 import validate from '../../utils/validate';
 
 function Login(props) {
@@ -38,7 +38,7 @@ function Login(props) {
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     try {
-      const { response } = await requestLogin('/login', login);
+      const { response } = await requestPost('/login', login);
 
       setInfo({ ...response });
       setError(false);
