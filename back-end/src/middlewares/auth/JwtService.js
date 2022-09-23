@@ -23,8 +23,8 @@ module.exports = {
         throw new CustomError(401, 'Token not found');
       }
       const decoded = jwt.verify(token, secret);
-      const { id } = decoded;
-      return id;
+      const data = { id: decoded.id, name: decoded.name, email: decoded.email, role: decoded.role };
+      return data;  
     } catch (err) {
       // const error = new Error('Token must be a valid token');
       // error.name = 'invalid token';

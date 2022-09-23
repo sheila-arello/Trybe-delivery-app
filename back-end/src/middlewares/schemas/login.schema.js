@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const loginSchema = Joi.object({
   email: Joi.string()
-    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'br', 'org'] } })
     .required()
     .messages({
       'string.empty': '400|All fields must be filled',
