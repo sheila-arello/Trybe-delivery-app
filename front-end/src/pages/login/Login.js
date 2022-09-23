@@ -123,6 +123,7 @@ function Login(props) {
             type="button"
             data-testid="common_login__button-register"
             name="register"
+            onClick={ () => history.push('/register') }
           >
             Ainda não tenho conta
           </button>
