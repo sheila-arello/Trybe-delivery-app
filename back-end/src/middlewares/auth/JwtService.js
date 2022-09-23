@@ -17,18 +17,16 @@ module.exports = {
   verify(token) {
     try {
       if (!token) {
-        // const error = new Error('Token not found');
-        // error.name = 'non existant token';
-        // throw error;
         throw new CustomError(401, 'Token not found');
       }
       const decoded = jwt.verify(token, secret);
       const data = { id: decoded.id, name: decoded.name, email: decoded.email, role: decoded.role };
+<<<<<<< HEAD
       return data;  
+=======
+      return data;
+>>>>>>> 4d5f7c2a96f31f86df259794814122032cdeaaeb
     } catch (err) {
-      // const error = new Error('Token must be a valid token');
-      // error.name = 'invalid token';
-      // throw error;
       throw new CustomError(401, 'Token must be a valid token');
     }
   },
