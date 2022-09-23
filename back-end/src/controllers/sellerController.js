@@ -17,4 +17,13 @@ module.exports = {
 
     return res.status(200).json(orders);
   },
+  
+  async update(req, res) {
+    const { saleStatus } = req.body;
+    const { id } = req.params;
+
+    const orders = await Seller.update(saleStatus, id);
+
+    return res.status(200).json(orders);
+  },
 };

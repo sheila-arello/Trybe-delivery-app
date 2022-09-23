@@ -27,4 +27,10 @@ module.exports = {
 
     return orderById;
   },
+
+  async update(saleStatus, sellId) {
+    await Sale.update({ status: saleStatus }, { where: { id: sellId } });
+
+    return 'Update successfully';
+  },
 };
