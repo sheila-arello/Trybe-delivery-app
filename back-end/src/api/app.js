@@ -6,10 +6,8 @@ require('express-async-errors');
 const loginRouter = require('../routes/login.routes');
 
 const app = express();
-app.use((cors({
-    origin: '*',
-})));
 app.use(express.json());
+app.use((cors({ origin: '*' })));
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use(loginRouter);
