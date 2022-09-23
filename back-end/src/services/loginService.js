@@ -20,7 +20,7 @@ module.exports = {
       throw new CustomError(404, 'Not found');
     }
 
-    const payload = { name: user.name, email, role: user.role };
+    const payload = { id: user.id, name: user.name, email, role: user.role };
 
     const token = jwt.sign(payload);
     const response = { ...payload, token };
@@ -37,9 +37,9 @@ module.exports = {
     const hashedPwd = md5(password);
     const role = 'customer';
     
-    await User.create({ name, email, password: hashedPwd, role });
+    const newUser = await User.create({ name, email, password: hashedPwd, role });
 
-    const payload = { name, email, role };
+    const payload = { id: newUser.id, name, email, role };
     const token = jwt.sign(payload);
 
     const response = { ...payload, token };
