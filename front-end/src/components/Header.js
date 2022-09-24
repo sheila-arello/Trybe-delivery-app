@@ -1,35 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 
 function Header({ history: { location: { pathname } } }) {
+  const [user, setUser] = useState({
+    name: '',
+  });
+
+  useEffect(() => {
+    const { name } = JSON.parse(localStorage.getItem('info'));
+    if (name) { setUser(name); }
+  }, []);
+
   return (
     <div>
-      <header>
+      <nav>
         <section>
           {
             pathname.includes('products')
             // pathname === '/customer/products'
               ? (
-                <nav data-testid="customer_products__element-navbar-link-products">
-                  produtos
-                </nav>
+                <span data-testid="customer_products__element-navbar-link-products">
+                  PRODUTOS
+                </span>
               )
               : (
-                <nav data-testid="customer_products__element-navbar-link-orders">
-                  pedidos
-                </nav>
+                <span data-testid="customer_products__element-navbar-link-orders">
+                  PEDIDOS
+                </span>
               )
           }
         </section>
-        <nav data-testid="customer_products__element-navbar-user-full-name">
-          nome da pessoa
-        </nav>
+        <span data-testid="customer_products__element-navbar-user-full-name">
+          { user.name }
+        </span>
         <ul>
           <li data-testid="customer_products__element-navbar-link-logout">
-            sair
+            Sair
           </li>
         </ul>
-      </header>
+      </nav>
     </div>
   );
 }
@@ -42,4 +51,4 @@ Header.propTypes = {
   }).isRequired,
 };
 
-export default Routes;
+export default Header;

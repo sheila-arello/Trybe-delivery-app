@@ -43,6 +43,7 @@ function Login(props) {
       setInfo({ ...response });
       setError(false);
       history.push('customer/products');
+      // if (response.role) { history.push(`${response.role}/orders`); }
     } catch (err) {
       setInfo({
         name: '',
