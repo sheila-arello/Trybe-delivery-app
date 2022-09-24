@@ -2,7 +2,7 @@ const Seller = require('../services/sellerService');
 
 module.exports = {
   async getAll(req, res) {
-    const { token } = req.body;
+    const token = req.headers.authorization;
 
     const orders = await Seller.getAll(token);
 
@@ -10,7 +10,7 @@ module.exports = {
   },
 
   async getById(req, res) {
-    const { token } = req.body;
+    const token = req.headers.authorization;
     const { id } = req.params;
 
     const orders = await Seller.getById(token, id);
