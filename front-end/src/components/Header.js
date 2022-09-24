@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 
-function Header({ history: { location: { pathname } } }) {
-  const [user, setUser] = useState({
-    name: '',
-  });
-
-  useEffect(() => {
-    const { name } = JSON.parse(localStorage.getItem('info'));
-    if (name) { setUser(name); }
-  }, []);
-
+function Header({ userType, userName }) {
   return (
     <div>
       <nav>
         <section>
           {
-            pathname.includes('products')
-            // pathname === '/customer/products'
+            userType === 'products'
               ? (
                 <span data-testid="customer_products__element-navbar-link-products">
                   PRODUTOS
@@ -31,7 +21,7 @@ function Header({ history: { location: { pathname } } }) {
           }
         </section>
         <span data-testid="customer_products__element-navbar-user-full-name">
-          { user.name }
+          { userName }
         </span>
         <ul>
           <li data-testid="customer_products__element-navbar-link-logout">
@@ -44,11 +34,8 @@ function Header({ history: { location: { pathname } } }) {
 }
 
 Header.propTypes = {
-  history: propTypes.shape({
-    location: propTypes.shape({
-      pathname: propTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+  userType: propTypes.string.isRequired,
+  userName: propTypes.string.isRequired,
 };
 
 export default Header;
