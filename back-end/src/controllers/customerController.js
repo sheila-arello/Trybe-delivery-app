@@ -29,4 +29,11 @@ module.exports = {
     const created = await customerService.createSale(req.id, order);
     res.status(200).json(created);
   },
+
+  async getOrderByOrderId(req, res) {
+    const { id } = req.params;
+    const userId = req.id;
+    const order = await customerService.getOrderByOrderId(userId, id);
+    res.status(200).json(order);
+  },
 };

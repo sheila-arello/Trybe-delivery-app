@@ -38,6 +38,44 @@ module.exports = {
     return ordersByUserId;
   },
 
+  async getOrderByOrderId(_userId, id) {
+    // Eagle
+    // const orderById = await Sale.findOne({ 
+    //   where: { id },
+    //   include:
+    //     [
+    //       { model: User, foreignKey: 'sellerId', as: 'sellers', attributes: ['name'] },
+    //       { model: Product,
+    //         foreignKey: 'productId',
+    //         as: 'orders',
+    //         through: SalesProduct,
+    //         attributes: ['name'] },
+    //     ],
+    // });
+
+    // Lazy:
+    const orderById = await Sale.findOne({ 
+      where: { id }, 
+      include: { model: User, foreignKey: 'sellerId', as: 'sellers', attributes: ['name'] },
+    });
+
+    // const products = await SalesProduct.findAll({ 
+    //   where: { saleId: id },
+    //   include:
+    //     [{
+    //       model: Product,
+    //       foreignKey: 'productId',
+    //       as: 'orders',
+    //       through: { attributes: ['name'] },
+    //     }],
+    // });
+    // console.log(products);
+    if (!orderById) throw new CustomError(404, 'Not found');
+    // verificar se a oreder pertence ao usuario do token
+
+    return orderById;
+  },
+
   async createSale(userId, order) {
     const sellerId = await User.findOne({ where: 
       { [Op.and]: [{ role: 'seller' }, { name: order.sellerName }] } });

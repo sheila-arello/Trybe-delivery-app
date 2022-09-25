@@ -7,6 +7,7 @@ customerRouter.use(validateToken);
 customerRouter.get('/products/:id', customerController.getProductById);
 customerRouter.get('/products', customerController.getAllProducts);
 customerRouter.get('/checkout', customerController.getAllSellers);
+customerRouter.get('/orders/:id', customerController.getOrderByOrderId);
 customerRouter.get('/orders', customerController.getOrdersByCustomerId);
 customerRouter.post('/orders', customerController.createSale);
 
