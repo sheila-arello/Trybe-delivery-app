@@ -15,7 +15,7 @@ function Header({ screenType, userName, userType }) {
                 </span>
               )
               : (
-                <span data-testid="customer_products__element-navbar-link-products">
+                <span data-testid="customer_products__element-navbar-link-orders">
                   PEDIDOS
                 </span>
               )
