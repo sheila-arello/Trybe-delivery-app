@@ -42,8 +42,8 @@ function Login(props) {
 
       setInfo({ ...response });
       setError(false);
-      history.push('customer/products');
-      // if (response.role) { history.push(`${response.role}/orders`); }
+      if (response.role === 'seller') { history.push(`${response.role}/orders`); }
+      if (response.role === 'customer') history.push('customer/products');
     } catch (err) {
       setInfo({
         name: '',
