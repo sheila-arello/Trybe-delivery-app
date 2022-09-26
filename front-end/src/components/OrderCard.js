@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import OrderStatus from './OrderStatus';
 
-function OrderCard({ order, userType }) {
+function OrderCard({ order, userType, orderType }) {
   const { id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber } = order;
   const date = saleDate.split('T')[0];
   // console.log(userType); OK
@@ -16,7 +16,12 @@ function OrderCard({ order, userType }) {
           { id }
         </p>
       </div>
-      <OrderStatus status={ status } id={ id } userType={ userType } />
+      <OrderStatus
+        status={ status }
+        id={ id }
+        userType={ userType }
+        orderType={ orderType }
+      />
       <div>
         <p data-testid={ `${userType}_orders__element-card-address-${id}` }>
           {`${deliveryAddress}, ${deliveryNumber}`}
@@ -45,6 +50,7 @@ OrderCard.propTypes = {
     deliveryNumber: propTypes.string,
   }).isRequired,
   userType: propTypes.string.isRequired,
+  orderType: propTypes.string.isRequired,
 };
 
 export default OrderCard;
