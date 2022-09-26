@@ -41,6 +41,7 @@ function OrderDetails(props) {
         { order.map((product, index) => (
           <tr key={ index }>
             <OrderProduct
+              userType={ userType }
               item={ index }
               id={ product.id }
               name={ product.name }
@@ -50,7 +51,7 @@ function OrderDetails(props) {
             />
           </tr>
         ))}
-        <span>
+        <span data-testid={ `${userType}_order_details__element-order-total-price` }>
           { totalPrice.reduce((acc, cur) => acc + cur) }
         </span>
       </ul>
