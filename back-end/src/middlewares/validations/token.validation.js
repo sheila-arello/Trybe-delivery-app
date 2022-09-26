@@ -2,8 +2,9 @@ const JwtService = require('../auth/JwtService');
 const CustomError = require('../errors/custom.error');
 
 function validateToken(req, res, next) {
-  // const token = req.headers.authorization;
-  const { token } = req.body;
+  const token = req.headers.authorization;
+  // const { token } = req.body;
+  
 
   try {
     const data = JwtService.verify(token);

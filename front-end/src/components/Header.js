@@ -1,45 +1,47 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-function Header({ history: { location: { pathname } } }) {
+function Header({ screenType, userName, userType }) {
   return (
     <div>
-      <header>
+      <nav>
         <section>
           {
-            pathname.includes('products')
-            // pathname === '/customer/products'
+            screenType === 'products'
               ? (
-                <nav data-testid="customer_products__element-navbar-link-products">
-                  produtos
-                </nav>
+                <span data-testid="customer_products__element-navbar-link-products">
+                  PRODUTOS
+                </span>
               )
               : (
-                <nav data-testid="customer_products__element-navbar-link-orders">
-                  pedidos
-                </nav>
+                <span data-testid="customer_products__element-navbar-link-products">
+                  PEDIDOS
+                </span>
               )
           }
         </section>
-        <nav data-testid="customer_products__element-navbar-user-full-name">
-          nome da pessoa
-        </nav>
+        {
+          userType === 'customer'
+          && (
+            <span data-testid="customer_products__element-navbar-link-orders">
+              MEUS PEDIDOS
+            </span>
+          )
+        }
+        <span data-testid="customer_products__element-navbar-user-full-name">
+          { userName }
+        </span>
         <ul>
           <li data-testid="customer_products__element-navbar-link-logout">
-            sair
+            Sair
           </li>
         </ul>
-      </header>
+      </nav>
     </div>
   );
 }
-
 Header.propTypes = {
-  history: propTypes.shape({
-    location: propTypes.shape({
-      pathname: propTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+  screenType: propTypes.string.isRequired,
+  userName: propTypes.string.isRequired,
+  userType: propTypes.string.isRequired,
 };
-
-export default Routes;
