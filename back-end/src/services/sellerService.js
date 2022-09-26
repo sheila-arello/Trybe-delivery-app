@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Sale } = require('../database/models');
+const { Sale, User } = require('../database/models');
 const jwt = require('../middlewares/auth/JwtService');
 const CustomError = require('../middlewares/errors/custom.error');
 
@@ -22,10 +22,13 @@ module.exports = {
     const orderById = await Sale.findOne({ where:
       { [Op.and]: [{ id: sellId }, { sellerId: id }] },
     });
+
+    const sellerById = await User.findByPk(id);
     
     if (!orderById) throw new CustomError(401, 'Unauthorized - wrong seller');
 
-    return orderById;
+    const response = {...orderById, sellerName: sellerById.name};
+    return response;
   },
 
   async update(saleStatus, sellId) {
