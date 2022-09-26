@@ -2,22 +2,34 @@ import React from 'react';
 import propTypes from 'prop-types';
 import OrderStatus from './OrderStatus';
 
-function OrderCard({ order }) {
-  const { id, status, date, totalPrice, address } = order;
+function OrderCard({ order, userType }) {
+  const { id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber } = order;
+  const date = saleDate.split('T')[0];
+  // console.log(userType); OK
 
   return (
     <section>
       <div>
-        <p data-testid={ `seller_orders__element-order-id-${id}` }>
+        <p data-testid={ `${userType}_orders__element-order-id-${id}` }>
           Pedido
+          <br />
           { id }
         </p>
       </div>
-      <OrderStatus status={ status } id={ id } />
+      <OrderStatus status={ status } id={ id } userType={ userType } />
       <div>
-        <p data-testid={ `seller_orders__element-order-date-${id}` }>{date}</p>
-        <p data-testid={ `seller_orders__element-card-price-${id}` }>{totalPrice}</p>
-        <p data-testid={ `seller_orders__element-card-address-${id}` }>{address}</p>
+        <p data-testid={ `${userType}_orders__element-card-address-${id}` }>
+          {`${deliveryAddress}, ${deliveryNumber}`}
+        </p>
+        <p data-testid={ `${userType}_orders__element-card-price-${id}` }>{totalPrice}</p>
+        {
+          userType === 'seller'
+          && (
+            <p data-testid={ `${userType}_orders__element-order-date-${id}` }>
+              { date }
+            </p>
+          )
+        }
       </div>
     </section>
   );
@@ -27,10 +39,12 @@ OrderCard.propTypes = {
   order: propTypes.shape({
     id: propTypes.number,
     status: propTypes.string,
-    date: propTypes.string,
+    saleDate: propTypes.string,
     totalPrice: propTypes.string,
-    address: propTypes.string,
+    deliveryAddress: propTypes.string,
+    deliveryNumber: propTypes.string,
   }).isRequired,
+  userType: propTypes.string.isRequired,
 };
 
 export default OrderCard;

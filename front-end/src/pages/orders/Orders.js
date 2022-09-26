@@ -8,15 +8,17 @@ function Orders(props) {
   const [orders, setOrders] = useState([]);
   const [userName, setUserName] = useState('');
   const { history: { location: { pathname } } } = props;
-  const userType = pathname.includes('products') ? 'products' : 'order';
+  const screenType = pathname.includes('products') ? 'products' : 'order';
+  const userType = pathname.includes('customer') ? 'customer' : 'seller';
+
+  // /customer/products
+  // /customer/order
+  // /seller/products
+  // /seller/order
 
   async function getOrders() {
-    // try {
-    const response = await requestData('/seller/orders');
+    const response = await requestData(`/${userType}/orders`);
     setOrders(response);
-    // } catch (err) {
-    //   setOrders([]);
-    // }
   }
 
   useEffect(() => {
@@ -28,10 +30,10 @@ function Orders(props) {
 
   return (
     <div>
-      <Header userType={ userType } userName={ userName } />
+      <Header screenType={ screenType } userName={ userName } userType={ userType } />
       <div>
         { orders.map((order, index) => (
-          <OrderCard key={ index } order={ order } />
+          <OrderCard key={ index } order={ order } userType={ userType } />
         ))}
       </div>
     </div>
