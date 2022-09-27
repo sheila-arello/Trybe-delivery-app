@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 
 export default function Header({ screenType, userName, userType }) {
   return (
-    <div className="white">
+    <div>
       <nav>
         <section>
           {
@@ -14,7 +14,7 @@ export default function Header({ screenType, userName, userType }) {
                 </span>
               )
               : (
-                <span data-testid="customer_products__element-navbar-link-orders">
+                <span data-testid="customer_products__element-navbar-link-products">
                   PEDIDOS
                 </span>
               )
