@@ -2,17 +2,12 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 export default function ProductCard({ id, name, price, image }) {
-  const replacePrice = price.replace('.', ',');
-  const [cartItems, setCartItems] = useState();
-
-  const addItem = () => {
-
-  };
+  const convertedPrice = parseFloat(price).toFixed(2).replace('.', ',');
 
   return (
     <div className="white">
       <span data-testid={ `customer_products__element-card-price-${id}` }>
-        {parseFloat(replacePrice).toFixed(2)}
+        {convertedPrice}
       </span>
       <div>
         <div>
