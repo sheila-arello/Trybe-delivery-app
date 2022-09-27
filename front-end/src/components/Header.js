@@ -1,7 +1,13 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-export default function Header({ screenType, userName, userType }) {
+function Header({ screenType, userName, userType }) {
+  // console.log(screenType, userType); OK
+  const handleSubmit = async () => {
+    localStorage.clear();
+    window.location.href = '/login';
+  };
+
   return (
     <div>
       <nav>
@@ -14,7 +20,7 @@ export default function Header({ screenType, userName, userType }) {
                 </span>
               )
               : (
-                <span data-testid="customer_products__element-navbar-link-products">
+                <span data-testid="customer_products__element-navbar-link-orders">
                   PEDIDOS
                 </span>
               )
@@ -31,17 +37,22 @@ export default function Header({ screenType, userName, userType }) {
         <span data-testid="customer_products__element-navbar-user-full-name">
           { userName }
         </span>
-        <ul>
-          <li data-testid="customer_products__element-navbar-link-logout">
-            Sair
-          </li>
-        </ul>
+        <button
+          type="submit"
+          data-testid="customer_products__element-navbar-link-logout"
+          onClick={ handleSubmit }
+        >
+          Sair
+        </button>
       </nav>
     </div>
   );
 }
+
 Header.propTypes = {
   screenType: propTypes.string.isRequired,
   userName: propTypes.string.isRequired,
   userType: propTypes.string.isRequired,
 };
+
+export default Header;
