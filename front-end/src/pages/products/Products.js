@@ -6,16 +6,31 @@ import localStorage from '../../utils/localStorage';
 
 function Products() {
   const [products, setProducts] = useState([]);
+  const { name: userName } = localStorage.get('user');
+  const [cart, setCart] = useState([]);
+
+  const carrinho = cart.reduce((acc, curr) => ({
+    name: curr.name,
+    subTotal: (parseFloat(acc.price) + parseFloat(curr)).toFixed(2),
+  }), 0);
+
+  console.log(carrinho);
 
   useEffect(() => {
     const getProducts = async () => {
-      const { token } = localStorage.get('info');
+      const { token } = localStorage.get('user');
       setToken(token);
       const response = await requestData('/customer/products');
       setProducts(response);
     };
     getProducts();
   }, []);
+
+  const addItem = (obj) => {
+    const { id: productId, name, price } = obj;
+
+    setCart([...cart, { productId, name, price }]);
+  };
 
   const renderProducts = () => products
     .map(({ id, name, urlImage, price }) => products.length > 0 && (
@@ -25,12 +40,14 @@ function Products() {
         name={ name }
         image={ urlImage }
         price={ price }
+        add={ addItem }
+
       />
     ));
 
   return (
     <div>
-      <Header screenType="products" userType="customer" />
+      <Header screenType="products" userType="customer" userName={ userName } />
       <div>
         {renderProducts()}
       </div>
