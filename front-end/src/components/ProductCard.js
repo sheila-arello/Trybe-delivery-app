@@ -3,6 +3,11 @@ import propTypes from 'prop-types';
 
 export default function ProductCard({ id, name, price, image }) {
   const replacePrice = price.replace('.', ',');
+  const [cartItems, setCartItems] = useState();
+
+  const addItem = () => {
+
+  };
 
   return (
     <div className="white">
@@ -46,7 +51,6 @@ export default function ProductCard({ id, name, price, image }) {
 
 ProductCard.propTypes = {
   id: propTypes.number.isRequired,
-  idx: propTypes.number.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.string.isRequired,
   image: propTypes.string.isRequired,
