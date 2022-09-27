@@ -8,11 +8,27 @@ import localStorage from '../../utils/localStorage';
 export default function Checkout() {
   const [sellers, setSellers] = useState();
   const [productList, setProducts] = useState([{
-    name: "Coca Cola",
+    name: 'Coca Cola',
     price: 23.40,
     quantity: 2,
   }]);
-  
+
+  // const [cart, setCart] = useState({
+  //   productId: '',
+  //   name: '',
+  //   price: '',
+  //   quantity: '',
+  //   subTotal: '',
+  // });
+
+  const finalizarPedido = async () => {
+    // const { token } = localStorage.get('user');
+    // setToken(token);
+    // enviar objeto do cart para o body e realizar a requisição POST
+    // para o back
+    console.log(productList);
+    const response = await sendData('/customer/orders');
+  };
   useEffect(() => {
     const getSellers = async () => {
       const { token } = localStorage.get('user');
@@ -26,7 +42,7 @@ export default function Checkout() {
   }, []);
 
   return (
-    <div className='white'>
+    <div className="white">
       <Header screenType="products" userType="customer" />
       <hr />
       <h3>Finalizar Pedido</h3>
@@ -41,25 +57,26 @@ export default function Checkout() {
       }
       <div>
         Total:
-        <span data-testid='customer_checkout__element-order-total-price'>000</span>
+        <span data-testid="customer_checkout__element-order-total-price">000</span>
       </div>
       <h3>Detalhes e Endereço para entrega</h3>
       <hr />
       <p>Vendedora Responsável</p>
-      <select data-testid='customer_checkout__select-seller'>
+      <select data-testid="customer_checkout__select-seller">
         <option>Ana</option>
         <option>Pedro</option>
       </select>
       <p>Endereço</p>
-        <input type='text' data-testid='customer_checkout__input-address'
-        />
+      <input type="text" data-testid="customer_checkout__input-address" />
       <p>Número</p>
-      <input type='text' data-testid='customer_checkout__input-address-number'
-        />
-      <button type='submit' data-testid='customer_checkout__button-submit-order'>
+      <input type="text" data-testid="customer_checkout__input-address-number" />
+      <button
+        type="submit"
+        data-testid="customer_checkout__button-submit-order"
+        onClick={ () => finalizarPedido() }
+      >
         Finalizar Pedido
       </button>
     </div>
   );
 }
-
