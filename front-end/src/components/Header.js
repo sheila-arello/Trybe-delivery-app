@@ -7,6 +7,7 @@ function Header({ screenType, userName, userType }) {
     localStorage.clear();
     window.location.href = '/login';
   };
+
   return (
     <div>
       <nav>
@@ -20,7 +21,7 @@ function Header({ screenType, userName, userType }) {
               )
               : (
                 <span data-testid="customer_products__element-navbar-link-orders">
-                  PEDIDOS
+                  {userType === 'administrator' ? 'GERENCIAR USUÁRIO' : 'PEDIDOS'}
                 </span>
               )
           }
@@ -47,9 +48,11 @@ function Header({ screenType, userName, userType }) {
     </div>
   );
 }
+
 Header.propTypes = {
   screenType: propTypes.string.isRequired,
   userName: propTypes.string.isRequired,
   userType: propTypes.string.isRequired,
 };
+
 export default Header;
