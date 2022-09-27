@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-function Header({ screenType, userName, userType }) {
+export default function Header({ screenType, userName, userType }) {
   return (
     <div>
       <nav>

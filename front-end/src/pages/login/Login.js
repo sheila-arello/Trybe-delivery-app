@@ -12,7 +12,7 @@ function Login(props) {
   });
   const [button, setButton] = useState(true);
   const [error, setError] = useState(false);
-  const [info, setInfo] = useState({
+  const [user, setUser] = useState({
     name: '',
     email: '',
     role: '',
@@ -40,11 +40,11 @@ function Login(props) {
     try {
       const { response } = await requestPost('/login', login);
 
-      setInfo({ ...response });
+      setUser({ ...response });
       setError(false);
       history.push('customer/products');
     } catch (err) {
-      setInfo({
+      setUser({
         name: '',
         email: '',
         role: '',
@@ -72,8 +72,8 @@ function Login(props) {
     validateLogin();
   }, [login]);
 
-  useEffect(() => info.token.length > 0
-    && localStorage.setItem('info', JSON.stringify(info)), [info]);
+  useEffect(() => user.token.length > 0
+    && localStorage.setItem('user', JSON.stringify(user)), [user]);
 
   return (
     <div>
