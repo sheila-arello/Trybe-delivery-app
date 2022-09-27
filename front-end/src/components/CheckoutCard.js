@@ -3,10 +3,11 @@ import propTypes from 'prop-types';
 
 function CheckoutCard({
   index,
-  product,
+  name,
+  quantity,
+  price,
 }) {
   const prefix = 'customer_checkout__element-order-table';
-  const { name, price, quantity } = product;
 
   return (
     <div>
