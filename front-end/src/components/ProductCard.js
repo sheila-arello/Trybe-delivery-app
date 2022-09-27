@@ -1,22 +1,53 @@
 import React from 'react';
+import propTypes from 'prop-types';
 
-export default function ProductCard() {
+export default function ProductCard({ id, name, price, image }) {
+  const replacePrice = price.replace('.', ',');
+
   return (
-    <div>
-      <span>
-        preço
+    <div className="white">
+      <span data-testid={ `customer_products__element-card-price-${id}` }>
+        {parseFloat(replacePrice).toFixed(2)}
       </span>
       <div>
         <div>
-          <img src="" alt="bebida" />
+          <img
+            data-testid={ `customer_products__img-card-bg-image-${id}` }
+            src={ image }
+            alt={ name }
+          />
         </div>
-        <p>nome da bebida</p>
+        <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
       </div>
       <div>
-        <span>menos</span>
-        <p>0</p>
-        <span>mais</span>
+        <button
+          type="button"
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+        >
+          -
+
+        </button>
+        <input
+          type="text"
+          placeholder="0"
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+        />
+        <button
+          type="button"
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+        >
+          +
+
+        </button>
       </div>
     </div>
   );
 }
+
+ProductCard.propTypes = {
+  id: propTypes.number.isRequired,
+  idx: propTypes.number.isRequired,
+  name: propTypes.string.isRequired,
+  price: propTypes.string.isRequired,
+  image: propTypes.string.isRequired,
+};

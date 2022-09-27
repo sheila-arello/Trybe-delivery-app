@@ -1,9 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-function Header({ screenType, userName, userType }) {
+export default function Header({ screenType, userName, userType }) {
   return (
-    <div>
+    <div className="white">
       <nav>
         <section>
           {
@@ -14,7 +14,7 @@ function Header({ screenType, userName, userType }) {
                 </span>
               )
               : (
-                <span data-testid="customer_products__element-navbar-link-products">
+                <span data-testid="customer_products__element-navbar-link-orders">
                   PEDIDOS
                 </span>
               )

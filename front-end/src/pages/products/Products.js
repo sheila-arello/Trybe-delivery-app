@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
+import ProductCard from '../../components/ProductCard';
 import { requestData, setToken } from '../../services/requests';
 import localStorage from '../../utils/localStorage';
 
 function Products() {
-  const [products, setProducts] = useState();
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -16,10 +17,23 @@ function Products() {
     getProducts();
   }, []);
 
+  const renderProducts = () => products
+    .map(({ id, name, urlImage, price }) => products.length > 0 && (
+      <ProductCard
+        key={ id }
+        id={ id }
+        name={ name }
+        image={ urlImage }
+        price={ price }
+      />
+    ));
+
   return (
     <div>
-      <Header />
-
+      <Header screenType="products" userType="customer" />
+      <div>
+        {renderProducts()}
+      </div>
     </div>
   );
 }
