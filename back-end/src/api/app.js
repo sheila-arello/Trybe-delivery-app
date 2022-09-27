@@ -11,6 +11,11 @@ const app = express();
 app.use(express.json());
 app.use((cors({ origin: '*' })));
 
+// Entregando arquivos estáticos no Express
+// https://expressjs.com/pt-br/starter/static-files.html
+
+app.use(express.static('public'));
+
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use(loginRouter);
 app.use('/customer', customerRouter);
