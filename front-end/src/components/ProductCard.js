@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-export default function ProductCard({ id, name, price, image }) {
+export default function ProductCard({ id, name, price, image, add }) {
   const convertedPrice = parseFloat(price).toFixed(2).replace('.', ',');
 
   return (
@@ -23,6 +23,7 @@ export default function ProductCard({ id, name, price, image }) {
         <button
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${id}` }
+
         >
           -
 
@@ -35,6 +36,7 @@ export default function ProductCard({ id, name, price, image }) {
         <button
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
+          onClick={ () => add({ id, name, price }) }
         >
           +
 
@@ -49,4 +51,6 @@ ProductCard.propTypes = {
   name: propTypes.string.isRequired,
   price: propTypes.string.isRequired,
   image: propTypes.string.isRequired,
+  add: propTypes.func.isRequired,
+
 };

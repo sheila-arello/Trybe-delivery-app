@@ -7,17 +7,34 @@ import { requestData, setToken } from '../../services/requests';
 function Products() {
   const [products, setProducts] = useState([]);
   const [userName, setUserName] = useState('');
+  const [cart, setCart] = useState([]);
+
+  const carrinho = cart.reduce((acc, curr) => ({
+    name: curr.name,
+    subTotal: (parseFloat(acc.price) + parseFloat(curr)).toFixed(2),
+  }), 0);
+
+  console.log(carrinho);
 
   useEffect(() => {
     const getProducts = async () => {
       const { token, name } = JSON.parse(localStorage.getItem('user'));
       setUserName(name);
+      // const { name: userName } = localStorage.get('user');
+      // const getProducts = async () => {
+      // const { token } = localStorage.get('user');
       setToken(token);
       const response = await requestData('/customer/products');
       setProducts(response);
     };
     getProducts();
   }, []);
+
+  const addItem = (obj) => {
+    const { id: productId, name, price } = obj;
+
+    setCart([...cart, { productId, name, price }]);
+  };
 
   const renderProducts = () => products
     .map(({ id, name, urlImage, price }) => products.length > 0 && (
@@ -27,12 +44,15 @@ function Products() {
         name={ name }
         image={ urlImage }
         price={ price }
+        add={ addItem }
+
       />
     ));
 
   return (
     <div>
       <Header screenType="products" userName={ userName } userType="customer" />
+      {/* <Header screenType="products" userType="customer" userName={ userName } /> */}
       <div>
         {renderProducts()}
       </div>
