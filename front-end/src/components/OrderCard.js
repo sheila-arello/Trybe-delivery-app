@@ -23,19 +23,21 @@ function OrderCard({ order, userType, orderType }) {
         orderType={ orderType }
       />
       <div>
-        <p data-testid={ `${userType}_orders__element-card-address-${id}` }>
-          {`${deliveryAddress}, ${deliveryNumber}`}
+        <p data-testid={ `${userType}_orders__element-order-date-${id}` }>
+          { date }
         </p>
         <p data-testid={ `${userType}_orders__element-card-price-${id}` }>{totalPrice}</p>
-        {
-          userType === 'seller'
-          && (
-            <p data-testid={ `${userType}_orders__element-order-date-${id}` }>
-              { date }
-            </p>
-          )
-        }
       </div>
+      {
+        userType === 'seller'
+        && (
+          <div>
+            <p data-testid={ `seller_orders__element-card-address-${id}` }>
+              {`${deliveryAddress}, ${deliveryNumber}`}
+            </p>
+          </div>
+        )
+      }
     </section>
   );
 }
