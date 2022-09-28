@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 
 function CheckoutCard({
   index,
+  productId,
   name,
   quantity,
   price,
@@ -12,44 +13,49 @@ function CheckoutCard({
   return (
     <div>
       <div>
-        <span
-          data-testid={ `${prefix}-item-number-${index}` }
-        >
-          { index + 1 }
-        </span>
+        <input
+          data-testid={ `${prefix}-item-number-${productId}` }
+          id="index"
+          value={ index + 1 }
+          disabled
+        />
       </div>
       <div>
-        <span
-          data-testid={ `${prefix}-name-${index}` }
-        >
-          { name }
-        </span>
+        <input
+          data-testid={ `${prefix}-name-${productId}` }
+          id="name"
+          value={ name }
+          disabled
+        />
       </div>
       <div>
-        <span
-          data-testid={ `${prefix}-quantity-${index}` }
-        >
-          { quantity }
-        </span>
+        <input
+          data-testid={ `${prefix}-quantity-${productId}` }
+          id="quantity"
+          value={ quantity }
+          disabled
+        />
       </div>
       <div>
-        <span
-          data-testid={ `${prefix}-unit-price-${index}` }
-        >
-          { price }
-        </span>
+        <input
+          data-testid={ `${prefix}-unit-price-${productId}` }
+          id="price"
+          value={ price }
+          disabled
+        />
       </div>
       <div>
-        <span
-          data-testid={ `${prefix}-sub-total-${index}` }
-        >
-          { price * quantity }
-        </span>
+        <input
+          data-testid={ `${prefix}-sub-total-${productId}` }
+          id="quantity"
+          value={ price * quantity }
+          disabled
+        />
       </div>
       <div>
         <button
           type="button"
-          data-testid={ `${prefix}-remove-${index}` }
+          data-testid={ `${prefix}-remove-${productId}` }
           // onClick={ () => handleRemove() }
         >
           Remover
@@ -61,6 +67,7 @@ function CheckoutCard({
 
 CheckoutCard.propTypes = {
   index: propTypes.number.isRequired,
+  productId: propTypes.number.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
   quantity: propTypes.number.isRequired,
