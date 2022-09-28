@@ -94,19 +94,35 @@ export default function Checkout() {
       <Header screenType="products" userName={ userName } userType="customer" />
       <hr />
       <h3>Finalizar Pedido</h3>
-      {
-        cart && (cart.map(({ productId, name, quantity, price }, index) => (
-          <CheckoutCard
-            key={ index }
-            index={ index }
-            productId={ productId }
-            name={ name }
-            quantity={ quantity }
-            price={ price }
-            handleRemove={ handleRemove }
-          />
-        )))
-      }
+      <table>
+        <caption>Items</caption>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+            <th>Remover Item</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            cart && (cart.map(({ productId, name, quantity, price }, index) => (
+
+              <CheckoutCard
+                key={ index }
+                index={ index }
+                productId={ productId }
+                name={ name }
+                quantity={ quantity }
+                price={ price }
+                handleRemove={ handleRemove }
+              />
+            )))
+          }
+        </tbody>
+      </table>
+
       <div>
         Total:
         <span data-testid="customer_checkout__element-order-total-price">
