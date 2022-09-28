@@ -3,73 +3,68 @@ import propTypes from 'prop-types';
 
 function CheckoutCard({
   index,
-  productId,
   name,
   quantity,
   price,
 }) {
   const prefix = 'customer_checkout__element-order-table';
-
+  const convertedPrice = parseFloat(price).toFixed(2).replace('.', ',');
   return (
-    <div>
-      <div>
-        <input
-          data-testid={ `${prefix}-item-number-${productId}` }
-          id="index"
-          value={ index + 1 }
-          disabled
-        />
-      </div>
-      <div>
-        <input
-          data-testid={ `${prefix}-name-${productId}` }
-          id="name"
-          value={ name }
-          disabled
-        />
-      </div>
-      <div>
-        <input
-          data-testid={ `${prefix}-quantity-${productId}` }
-          id="quantity"
-          value={ quantity }
-          disabled
-        />
-      </div>
-      <div>
-        <input
-          data-testid={ `${prefix}-unit-price-${productId}` }
-          id="price"
-          value={ price }
-          disabled
-        />
-      </div>
-      <div>
-        <input
-          data-testid={ `${prefix}-sub-total-${productId}` }
-          id="quantity"
-          value={ price * quantity }
-          disabled
-        />
-      </div>
-      <div>
+    <tr>
+
+      <td
+        data-testid={ `${prefix}-item-number-${index}` }
+        id="index"
+      >
+        { index + 1 }
+      </td>
+
+      <td
+        data-testid={ `${prefix}-name-${index}` }
+        id="name"
+      >
+        { name }
+
+      </td>
+
+      <td
+        data-testid={ `${prefix}-quantity-${index}` }
+        id="quantity"
+      >
+        { quantity }
+      </td>
+
+      <td
+        data-testid={ `${prefix}-unit-price-${index}` }
+        id="price"
+      >
+        { convertedPrice }
+      </td>
+
+      <td
+        data-testid={ `${prefix}-sub-total-${index}` }
+        id="quantity"
+      >
+        { price * quantity }
+      </td>
+
+      <td>
         <button
           type="button"
-          data-testid={ `${prefix}-remove-${productId}` }
+          data-testid={ `${prefix}-remove-${index}` }
           // onClick={ () => handleRemove() }
         >
           Remover
         </button>
-      </div>
-    </div>
+      </td>
+    </tr>
   );
 }
 
 CheckoutCard.propTypes = {
   index: propTypes.number.isRequired,
-  productId: propTypes.number.isRequired,
   name: propTypes.string.isRequired,
-  price: propTypes.number.isRequired,
+  price: propTypes.string.isRequired,
   quantity: propTypes.number.isRequired,
 };
 
