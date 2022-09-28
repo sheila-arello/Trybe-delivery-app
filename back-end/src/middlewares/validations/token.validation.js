@@ -4,9 +4,8 @@ const CustomError = require('../errors/custom.error');
 function validateToken(req, res, next) {
   const token = req.headers.authorization;
   // const { token } = req.body;
-  
 
-  try {
+    try {
     const data = JwtService.verify(token);
     req.id = data.id;
     req.role = data.role;

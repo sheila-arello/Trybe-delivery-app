@@ -5,39 +5,59 @@ import Header from '../../components/Header';
 import { requestData, requestPost, setToken } from '../../services/requests';
 import localStorage from '../../utils/localStorage';
 
+const mockCart = [
+  {
+    productId: 1,
+    name: 'xyz',
+    price: '12.5',
+    quantity: 1,
+    subTotal: 10,
+  },
+  {
+    productId: 2,
+    name: 'jahdfjh',
+    price: '1.5',
+    quantity: 12,
+    subTotal: 1020,
+  },
+];
+
 export default function Checkout() {
-  const [sellers, setSellers] = useState();
+  const { name: userName } = localStorage.get('user');
+  const [sellers, setSellers] = useState(['Sheila']);
+  const [sellerName, setSellerName] = useState();
   const [address, setAddress] = useState();
   const [number, setNumber] = useState();
-  const [cart, setCart] = useState({
-    productId: '',
-    name: '',
-    price: '',
-    quantity: '',
-    subTotal: '',
-  });
+  const [cart, setCart] = useState(mockCart);
+  console.log(cart);
+  // {
+  //   productId: '',
+  //   name: '',
+  //   price: '',
+  //   quantity: '',
+  //   subTotal: '',
+  // });
 
   const handleSubmit = async () => {
-    localStorage.clear();
-    window.location.href = '/login';
-  };
-
-  const finalizarPedido = async () => {
-    // Precisa realizar novamente o setToken ?
-    const { token } = localStorage.get('user');
-    setToken(token);
     // enviar objeto do cart para o body e realizar a requisição POST
     // para o back
     // const data = sellerName, deliveryAddress, deliveryNumber
+    if (!cart) return null;
+    const itens = cart.map((prod) => ({
+      productId: prod.productId,
+      quantity: prod.quantity,
+    }));
     const body = {
-      productId: '',
-      name: '',
-      price: '',
-      quantity: '',
-      subTotal: '',
+      sellerName,
+      totalPrice,
+      deliveryAddress: address,
+      deliveryNumber,
+      itens,
     };
     const response = await requestPost('/customer/orders', body);
+    window.location.href = `/customer/orders/${response.id}`;
   };
+
   useEffect(() => {
     setCart(localStorage.get('cart'));
     const getSellers = async () => {
@@ -49,13 +69,17 @@ export default function Checkout() {
     getSellers();
   }, []);
 
+  function renderOption(seller) {
+    return (<option key={ seller } value={ seller }>{ seller }</option>);
+  }
+
   return (
     <div className="white">
       <Header screenType="products" userName={ userName } userType="customer" />
       <hr />
       <h3>Finalizar Pedido</h3>
       {
-        cart.map(({ name, quantity, price }, index) => (
+        cart && (cart.map(({ name, quantity, price }, index) => (
           <CheckoutCard
             key={ index }
             index={ index }
@@ -63,7 +87,7 @@ export default function Checkout() {
             quantity={ quantity }
             price={ price }
           />
-        ))
+        )))
       }
       <div>
         Total:
@@ -72,18 +96,14 @@ export default function Checkout() {
       <h3>Detalhes e Endereço para entrega</h3>
       <hr />
       <p>Vendedora Responsável</p>
-      <select data-testid="customer_checkout__select-seller">
-        <option>Ana</option>
-        <option>Pedro</option>
-      </select>
       <select
         id="seller"
         name="seller"
-        value={ seller }
+        value={ sellerName }
         data-testid="customer_checkout__select-seller"
-        onChange={ (event) => setColOrder(event.target.value) }
+        onChange={ (event) => setSellerName(event.target.value) }
       >
-        { sellers.map((seller) => renderOption(seller)) }
+        { sellers && sellers.map((seller) => renderOption(seller)) }
       </select>
       <p>Endereço</p>
       <input
