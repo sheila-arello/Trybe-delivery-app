@@ -15,38 +15,42 @@ function CheckoutCard({
       <div>
         <input
           data-testid={ `${prefix}-item-number-${productId}` }
-          id="name"
+          id="index"
           value={ index + 1 }
           disabled
         />
       </div>
       <div>
-        <span
+        <input
           data-testid={ `${prefix}-name-${productId}` }
-        >
-          { name }
-        </span>
+          id="name"
+          value={ name }
+          disabled
+        />
       </div>
       <div>
-        <span
+        <input
           data-testid={ `${prefix}-quantity-${productId}` }
-        >
-          { quantity }
-        </span>
+          id="quantity"
+          value={ quantity }
+          disabled
+        />
       </div>
       <div>
-        <span
+        <input
           data-testid={ `${prefix}-unit-price-${productId}` }
-        >
-          { price }
-        </span>
+          id="price"
+          value={ price }
+          disabled
+        />
       </div>
       <div>
-        <span
+        <input
           data-testid={ `${prefix}-sub-total-${productId}` }
-        >
-          { price * quantity }
-        </span>
+          id="quantity"
+          value={ price * quantity }
+          disabled
+        />
       </div>
       <div>
         <button

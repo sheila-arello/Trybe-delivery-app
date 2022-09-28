@@ -5,22 +5,22 @@ import Header from '../../components/Header';
 import { requestData, requestPost, setToken } from '../../services/requests';
 import localStorage from '../../utils/localStorage';
 
-const mockCart = [
-  {
-    productId: 1,
-    name: 'xyz',
-    price: '12.5',
-    quantity: 1,
-    subTotal: 10,
-  },
-  {
-    productId: 2,
-    name: 'jahdfjh',
-    price: '1.5',
-    quantity: 12,
-    subTotal: 1020,
-  },
-];
+// const mockCart = [
+//   {
+//     productId: 1,
+//     name: 'xyz',
+//     price: '12.5',
+//     quantity: 1,
+//     subTotal: 10,
+//   },
+//   {
+//     productId: 2,
+//     name: 'jahdfjh',
+//     price: '1.5',
+//     quantity: 12,
+//     subTotal: 1020,
+//   },
+// ];
 
 export default function Checkout() {
   const [userName, setUserName] = useState('');
@@ -28,7 +28,7 @@ export default function Checkout() {
   const [sellerName, setSellerName] = useState();
   const [address, setAddress] = useState();
   const [number, setNumber] = useState();
-  const [cart, setCart] = useState(mockCart);
+  const [cart, setCart] = useState();
 
   // console.log(cart);
   const totalPrice = () => cart.reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0);
@@ -49,14 +49,12 @@ export default function Checkout() {
       deliveryNumber: number,
       items,
     };
-    console.log(body);
     const response = await requestPost('/customer/orders', body);
-    console.log(response);
     window.location.href = `/customer/orders/${response.id}`;
   };
 
   useEffect(() => {
-    setCart(localStorage.get('cart'));
+    setCart(localStorage.get('carrinho'));
     console.log('Entrei na pagina');
     const getSellers = async () => {
       const { token, name } = localStorage.get('user');
