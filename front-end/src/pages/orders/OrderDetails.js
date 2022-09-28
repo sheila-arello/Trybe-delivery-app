@@ -48,10 +48,11 @@ function OrderDetails(props) {
               quantity={ product.quantity }
               price={ product.price }
               totalPrice={ setTotalPrice }
+              orderType={ orderType }
             />
           </tr>
         ))}
-        <span data-testid={ `${userType}_order_details__element-order-total-price` }>
+        <span data-testid={ `${userType}_${orderType}__element-order-total-price` }>
           { totalPrice.reduce((acc, cur) => acc + cur) }
         </span>
       </ul>

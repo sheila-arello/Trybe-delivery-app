@@ -2,12 +2,42 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 function OrderStatus({ status, id, userType, orderType }) {
+  const index = id - 1;
   // console.log(userType); OK
   return (
     <div>
-      <p data-testid={ `${userType}_${orderType}__element-delivery-status-${id}` }>
-        { status }
-      </p>
+      {
+        orderType === 'orders'
+          && (
+            <p /* data-testid= 34(customer) e 49(seller) */
+              data-testid={ `${userType}_${orderType}__element-delivery-status-${id}` }
+            >
+              { status }
+            </p>
+          )
+      }
+      {
+        (orderType === 'order_details' && userType === 'customer')
+          ? (
+            <p /* data-testid= 40(customer) */
+              data-testid={
+                `${userType}_${orderType}`
+                + `__element-order-details-label-delivery-status-${index}`
+              }
+            >
+              { status }
+            </p>
+          )
+          : (
+            <p /* data-testid= 54(seller) */ /* possível conflito de label */
+              data-testid={
+                `${userType}_${orderType}__element-order-details-label-delivery-status`
+              }
+            >
+              { status }
+            </p>
+          )
+      }
     </div>
   );
 }

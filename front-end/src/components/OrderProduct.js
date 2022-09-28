@@ -1,27 +1,39 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-function OrderProduct({ userType, item, id, name, quantity, price, totalPrice }) {
+function OrderProduct(
+  { userType, item, id, name, quantity, price, totalPrice, orderType },
+) {
+  const index = id - 1;
+
   return (
     <>
-      <td
-        data-testid={ `${userType}_order_details__element-order-table-item-number-${id}` }
+      <td /* data-testid= 41(customer) e 58(seller) */
+        data-testid={
+          `${userType}_${orderType}__element-order-table-item-number-${index}`
+        }
       >
         { item }
       </td>
-      <td data-testid={ `${userType}_order_details__element-order-table-name-${id}` }>
+      <td /* data-testid= 42(customer) e 59(seller) */
+        data-testid={ `${userType}_${orderType}__element-order-table-name-${index}` }
+      >
         { name }
       </td>
-      <td data-testid={ `${userType}_order_details__element-order-table-quantity-${id}` }>
+      <td /* data-testid= 43(customer) e 60(seller) */
+        data-testid={ `${userType}_${orderType}__element-order-table-quantity-${index}` }
+      >
         { quantity }
       </td>
-      <td
-        data-testid={ `${userType}_order_details__element-order-table-unit-price-${id}` }
+      <td /* data-testid= 44(customer) e 61(seller) */
+        data-testid={
+          `${userType}_${orderType}__element-order-table-unit-price-${index}`
+        }
       >
         { price }
       </td>
-      <td
-        data-testid={ `${userType}_order_details__element-order-table-sub-total-${id}` }
+      <td /* data-testid= 45(customer) e 62(seller) */
+        data-testid={ `${userType}_${orderType}__element-order-table-sub-total-${index}` }
       >
         { totalPrice(Math.ceil(quantity * price).toFixed(2)) }
         { Math.ceil(quantity * price).toFixed(2) }
@@ -40,6 +52,7 @@ OrderProduct.propTypes = {
   quantity: propTypes.number.isRequired,
   price: propTypes.number.isRequired,
   totalPrice: propTypes.func.isRequired,
+  orderType: propTypes.string.isRequired,
 };
 
 export default OrderProduct;

@@ -6,18 +6,24 @@ function OrderHeader({ userType, order, orderType }) {
   const { id, status, saleDate, sellerName } = order;
   const date = saleDate.split('T')[0];
 
+  // Possível erro de teste: tags p das linhas precisarem ser mudadas para label
+  // por conta do data-testid
   return (
     <section>
-      <p data-testid={ `${userType}_orders__element-order-id-${id}` }>
+      <p /* data-testid= 37(customer) e 53(seller) */
+        data-testid={ `${userType}_${orderType}__element-order-details-label-order-id` }
+      >
         { `Pedido ${id}` }
       </p>
-      <p data-testid={ `${userType}_orders__element-order-date-${id}` }>
+      <p /* data-testid= 39(customer) e 55(seller) */
+        data-testid={ `${userType}_${orderType}__element-order-details-label-order-date` }
+      >
         { date }
       </p>
       {
         userType === 'customer'
         && (
-          <p
+          <p /* data-testid= 38(customer) */
             data-testid="customer_order_details__element-order-details-label-seller-name"
           >
             { sellerName }
@@ -35,6 +41,7 @@ function OrderHeader({ userType, order, orderType }) {
           ? (
             <button
               type="button"
+              /* data-testid= 47(customer) */
               data-testid="customer_order_details__button-delivery-check"
             >
               MARCAR COMO ENTREGUE
@@ -44,12 +51,14 @@ function OrderHeader({ userType, order, orderType }) {
             <div>
               <button
                 type="button"
+                /* data-testid= 56(seller) */
                 data-testid="seller_order_details__button-preparing-check"
               >
                 PREPARAR PEDIDO
               </button>
               <button
                 type="button"
+                /* data-testid= 57(seller) */
                 data-testid="seller_order_details__button-dispatch-check"
               >
                 SAIU PARA ENTREGA
