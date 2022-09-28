@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     timestamps: true,
     createdAt: 'saleDate',
+    updatedAt: 'saleDate',
     tableName: 'sales',
     underscored: true,
   });
@@ -28,8 +29,10 @@ module.exports = (sequelize, DataTypes) => {
   Sale.associate = (models) => {
     // relação: 1 userId para N sales
     Sale.belongsTo(models.User,
-      { foreignKey: 'userId', as: 'users' },
       { foreignKey: 'sellerId', as: 'sellers' },
+    );
+    Sale.belongsTo(models.User,
+      { foreignKey: 'userId', as: 'users' },
     );
   };
 
