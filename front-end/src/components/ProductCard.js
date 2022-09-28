@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import propTypes from 'prop-types';
 
-export default function ProductCard({ id, name, price, image, add }) {
+export default function ProductCard({ id, name, price, image, add, sub, handleQty }) {
   const convertedPrice = parseFloat(price).toFixed(2).replace('.', ',');
+
+  const [quantity, setQuantity] = useState(0);
+
+  const addItem = (obj) => {
+    add(obj);
+    return quantity >= 0 && setQuantity(quantity + 1);
+  };
+
+  const subItem = (obj) => {
+    sub(obj);
+    return quantity >= 1 && setQuantity(quantity - 1);
+  };
+
+  const handleValue = ({ target: { value } }) => {
+    setQuantity(Number(value));
+    handleQty({ id, name, price }, Number(value));
+  };
 
   return (
     <div className="white">
@@ -23,24 +40,30 @@ export default function ProductCard({ id, name, price, image, add }) {
         <button
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${id}` }
+          onClick={ () => subItem({ id, name, price }) }
+          disabled={ quantity === 0 }
 
         >
           -
 
         </button>
         <input
-          type="text"
+          type="number"
           placeholder="0"
+          value={ quantity }
           data-testid={ `customer_products__input-card-quantity-${id}` }
+          onChange={ (ev) => handleValue(ev) }
         />
+
         <button
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
-          onClick={ () => add({ id, name, price }) }
+          onClick={ () => addItem({ id, name, price }) }
         >
           +
 
         </button>
+
       </div>
     </div>
   );
@@ -52,5 +75,6 @@ ProductCard.propTypes = {
   price: propTypes.string.isRequired,
   image: propTypes.string.isRequired,
   add: propTypes.func.isRequired,
-
+  sub: propTypes.func.isRequired,
+  handleQty: propTypes.func.isRequired,
 };
