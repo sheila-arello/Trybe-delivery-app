@@ -8,7 +8,7 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const secret = fs.readFileSync("./back-end/jwt.evaluation.key", { encoding: "utf-8" });
+const secret = fs.readFileSync('./back-end/jwt.evaluation.key', { encoding: 'utf-8' });
 
 module.exports = {
   sign(payload) {
