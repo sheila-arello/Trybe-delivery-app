@@ -24,15 +24,17 @@ import localStorage from '../../utils/localStorage';
 
 export default function Checkout() {
   const [userName, setUserName] = useState('');
-  const [sellers, setSellers] = useState(['Sheila']);
+  const [sellers, setSellers] = useState([]);
   const [sellerName, setSellerName] = useState();
   const [address, setAddress] = useState();
   const [number, setNumber] = useState();
-  const [cart, setCart] = useState();
-  const [total, setTotal] = useState();
+  const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
 
   // console.log(cart);
-  const totalPrice = () => cart.reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0);
+  const totalPrice = () => cart
+    .reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0)
+    .toFixed(2);
 
   const handleSubmit = async () => {
     // enviar objeto do cart para o body e realizar a requisição POST
@@ -45,11 +47,12 @@ export default function Checkout() {
     }));
     const body = {
       sellerName,
-      totalPrice: totalPrice(),
+      totalPrice: total,
       deliveryAddress: address,
       deliveryNumber: number,
       items,
     };
+    console.log(body);
     const response = await requestPost('/customer/orders', body);
     window.location.href = `/customer/orders/${response.id}`;
   };
@@ -61,11 +64,26 @@ export default function Checkout() {
       setUserName(name);
       setToken(token);
       const response = await requestData('/customer/checkout');
+      console.log(response);
+      setSellerName(response[0]);
       setSellers(response);
     };
     getSellers();
-    setTotal(totalPrice());
   }, []);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      setTotal(totalPrice());
+    } else {
+      setTotal('0,00');
+    }
+  }, [cart]);
+
+  const handleRemove = (id) => {
+    const carrinho = cart.filter((el) => el.productId !== id);
+
+    setCart(carrinho);
+  };
 
   const renderOption = (seller) => (
     <option key={ seller } value={ seller }>{ seller }</option>
@@ -85,6 +103,7 @@ export default function Checkout() {
             name={ name }
             quantity={ quantity }
             price={ price }
+            handleRemove={ handleRemove }
           />
         )))
       }

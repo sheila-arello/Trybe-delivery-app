@@ -7,6 +7,7 @@ function CheckoutCard({
   name,
   quantity,
   price,
+  handleRemove,
 }) {
   const prefix = 'customer_checkout__element-order-table';
 
@@ -56,7 +57,7 @@ function CheckoutCard({
         <button
           type="button"
           data-testid={ `${prefix}-remove-${productId}` }
-          // onClick={ () => handleRemove() }
+          onClick={ () => handleRemove(productId) }
         >
           Remover
         </button>
@@ -71,6 +72,7 @@ CheckoutCard.propTypes = {
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
   quantity: propTypes.number.isRequired,
+  handleRemove: propTypes.func.isRequired,
 };
 
 export default CheckoutCard;
