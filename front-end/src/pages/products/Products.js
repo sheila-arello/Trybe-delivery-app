@@ -122,9 +122,17 @@ function Products({ history }) {
       <button
         type="button"
         data-testid="customer_products__checkout-bottom-value"
-        onClick={ () => history.push('/customer/checkout') }
       >
         {`${totalPrice().toFixed(2).replace('.', ',')}`}
+      </button>
+      <button
+        type="button"
+        data-testid="customer_products__button-cart"
+        onClick={ () => history.push('/customer/checkout') }
+        disabled={ cart.length === 0 }
+      >
+        carrinho
+
       </button>
     </div>
   );
