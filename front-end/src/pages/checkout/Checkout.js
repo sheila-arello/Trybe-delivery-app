@@ -23,45 +23,41 @@ const mockCart = [
 ];
 
 export default function Checkout() {
-  const { name: userName } = localStorage.get('user');
+  const [userName, setUserName] = useState('');
   const [sellers, setSellers] = useState(['Sheila']);
   const [sellerName, setSellerName] = useState();
   const [address, setAddress] = useState();
   const [number, setNumber] = useState();
-  const [cart, setCart] = useState(mockCart);
-  console.log(cart);
-  // {
-  //   productId: '',
-  //   name: '',
-  //   price: '',
-  //   quantity: '',
-  //   subTotal: '',
-  // });
+  const [cart] = useState(mockCart);
+  // console.log(cart);
 
   const handleSubmit = async () => {
     // enviar objeto do cart para o body e realizar a requisição POST
     // para o back
-    // const data = sellerName, deliveryAddress, deliveryNumber
     if (!cart) return null;
-    const itens = cart.map((prod) => ({
+    const items = cart.map((prod) => ({
       productId: prod.productId,
       quantity: prod.quantity,
     }));
     const body = {
       sellerName,
-      totalPrice,
+      totalPrice: 100,
       deliveryAddress: address,
-      deliveryNumber,
-      itens,
+      deliveryNumber: number,
+      items,
     };
+    console.log(body);
     const response = await requestPost('/customer/orders', body);
+    console.log(response);
     window.location.href = `/customer/orders/${response.id}`;
   };
 
   useEffect(() => {
-    setCart(localStorage.get('cart'));
+    // setCart(localStorage.get('cart'));
+    console.log('Entrei na pagina');
     const getSellers = async () => {
-      const { token } = localStorage.get('user');
+      const { token, name } = localStorage.get('user');
+      setUserName(name);
       setToken(token);
       const response = await requestData('/customer/checkout');
       setSellers(response);
@@ -69,9 +65,9 @@ export default function Checkout() {
     getSellers();
   }, []);
 
-  function renderOption(seller) {
-    return (<option key={ seller } value={ seller }>{ seller }</option>);
-  }
+  const renderOption = (seller) => (
+    <option key={ seller } value={ seller }>{ seller }</option>
+  );
 
   return (
     <div className="white">
