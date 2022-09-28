@@ -28,20 +28,23 @@ export default function Checkout() {
   const [sellerName, setSellerName] = useState();
   const [address, setAddress] = useState();
   const [number, setNumber] = useState();
-  const [cart] = useState(mockCart);
+  const [cart, setCart] = useState(mockCart);
+
   // console.log(cart);
+  const totalPrice = () => cart.reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0);
 
   const handleSubmit = async () => {
     // enviar objeto do cart para o body e realizar a requisição POST
     // para o back
     if (!cart) return null;
+
     const items = cart.map((prod) => ({
       productId: prod.productId,
       quantity: prod.quantity,
     }));
     const body = {
       sellerName,
-      totalPrice: 100,
+      totalPrice: totalPrice(),
       deliveryAddress: address,
       deliveryNumber: number,
       items,
@@ -53,7 +56,7 @@ export default function Checkout() {
   };
 
   useEffect(() => {
-    // setCart(localStorage.get('cart'));
+    setCart(localStorage.get('cart'));
     console.log('Entrei na pagina');
     const getSellers = async () => {
       const { token, name } = localStorage.get('user');
@@ -75,10 +78,11 @@ export default function Checkout() {
       <hr />
       <h3>Finalizar Pedido</h3>
       {
-        cart && (cart.map(({ name, quantity, price }, index) => (
+        cart && (cart.map(({ productId, name, quantity, price }, index) => (
           <CheckoutCard
             key={ index }
             index={ index }
+            productId={ productId }
             name={ name }
             quantity={ quantity }
             price={ price }
@@ -87,7 +91,9 @@ export default function Checkout() {
       }
       <div>
         Total:
-        <span data-testid="customer_checkout__element-order-total-price">000</span>
+        <span data-testid="customer_checkout__element-order-total-price">
+          { totalPrice }
+        </span>
       </div>
       <h3>Detalhes e Endereço para entrega</h3>
       <hr />

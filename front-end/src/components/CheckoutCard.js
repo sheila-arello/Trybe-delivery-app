@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 
 function CheckoutCard({
   index,
+  productId,
   name,
   quantity,
   price,
@@ -12,36 +13,37 @@ function CheckoutCard({
   return (
     <div>
       <div>
-        <span
-          data-testid={ `${prefix}-item-number-${index}` }
-        >
-          { index + 1 }
-        </span>
+        <input
+          data-testid={ `${prefix}-item-number-${productId}` }
+          id="name"
+          value={ index + 1 }
+          disabled
+        />
       </div>
       <div>
         <span
-          data-testid={ `${prefix}-name-${index}` }
+          data-testid={ `${prefix}-name-${productId}` }
         >
           { name }
         </span>
       </div>
       <div>
         <span
-          data-testid={ `${prefix}-quantity-${index}` }
+          data-testid={ `${prefix}-quantity-${productId}` }
         >
           { quantity }
         </span>
       </div>
       <div>
         <span
-          data-testid={ `${prefix}-unit-price-${index}` }
+          data-testid={ `${prefix}-unit-price-${productId}` }
         >
           { price }
         </span>
       </div>
       <div>
         <span
-          data-testid={ `${prefix}-sub-total-${index}` }
+          data-testid={ `${prefix}-sub-total-${productId}` }
         >
           { price * quantity }
         </span>
@@ -49,7 +51,7 @@ function CheckoutCard({
       <div>
         <button
           type="button"
-          data-testid={ `${prefix}-remove-${index}` }
+          data-testid={ `${prefix}-remove-${productId}` }
           // onClick={ () => handleRemove() }
         >
           Remover
@@ -61,6 +63,7 @@ function CheckoutCard({
 
 CheckoutCard.propTypes = {
   index: propTypes.number.isRequired,
+  productId: propTypes.number.isRequired,
   name: propTypes.string.isRequired,
   price: propTypes.number.isRequired,
   quantity: propTypes.number.isRequired,
