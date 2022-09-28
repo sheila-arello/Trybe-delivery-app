@@ -15,6 +15,8 @@ export default function ProductCard({ id, name, price, image, add }) {
             data-testid={ `customer_products__img-card-bg-image-${id}` }
             src={ image }
             alt={ name }
+            width="200"
+            height="200"
           />
         </div>
         <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
