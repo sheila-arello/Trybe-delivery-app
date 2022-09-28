@@ -29,6 +29,7 @@ export default function Checkout() {
   const [address, setAddress] = useState();
   const [number, setNumber] = useState();
   const [cart, setCart] = useState();
+  const [total, setTotal] = useState();
 
   // console.log(cart);
   const totalPrice = () => cart.reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0);
@@ -55,7 +56,6 @@ export default function Checkout() {
 
   useEffect(() => {
     setCart(localStorage.get('carrinho'));
-    console.log('Entrei na pagina');
     const getSellers = async () => {
       const { token, name } = localStorage.get('user');
       setUserName(name);
@@ -64,6 +64,7 @@ export default function Checkout() {
       setSellers(response);
     };
     getSellers();
+    setTotal(totalPrice());
   }, []);
 
   const renderOption = (seller) => (
@@ -90,7 +91,7 @@ export default function Checkout() {
       <div>
         Total:
         <span data-testid="customer_checkout__element-order-total-price">
-          { totalPrice }
+          { total }
         </span>
       </div>
       <h3>Detalhes e Endereço para entrega</h3>
