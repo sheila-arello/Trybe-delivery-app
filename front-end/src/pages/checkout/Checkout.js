@@ -3,69 +3,71 @@ import React, { useEffect, useState } from 'react';
 import CheckoutCard from '../../components/CheckoutCard';
 import Header from '../../components/Header';
 import { requestData, requestPost, setToken } from '../../services/requests';
-import localStorage from '../../utils/localStorage';
-
-// const mockCart = [
-//   {
-//     productId: 1,
-//     name: 'xyz',
-//     price: '12.5',
-//     quantity: 1,
-//     subTotal: 10,
-//   },
-//   {
-//     productId: 2,
-//     name: 'jahdfjh',
-//     price: '1.5',
-//     quantity: 12,
-//     subTotal: 1020,
-//   },
-// ];
+import convert from '../../utils/convert';
 
 export default function Checkout() {
   const [userName, setUserName] = useState('');
-  const [sellers, setSellers] = useState(['Sheila']);
+  const [sellers, setSellers] = useState([]);
   const [sellerName, setSellerName] = useState();
   const [address, setAddress] = useState();
   const [number, setNumber] = useState();
-  const [cart, setCart] = useState();
-  const [total, setTotal] = useState();
+  const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
 
   // console.log(cart);
-  const totalPrice = () => cart.reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0);
+  const totalPrice = () => cart
+    .reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0);
 
   const handleSubmit = async () => {
     // enviar objeto do cart para o body e realizar a requisição POST
     // para o back
     if (!cart) return null;
-
+    const sellerFound = sellers.find((seller) => seller.name === sellerName);
     const items = cart.map((prod) => ({
       productId: prod.productId,
       quantity: prod.quantity,
     }));
     const body = {
-      sellerName,
-      totalPrice: totalPrice(),
+      sellerId: sellerFound.id,
+      totalPrice: total,
       deliveryAddress: address,
       deliveryNumber: number,
       items,
     };
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    setToken(token);
     const response = await requestPost('/customer/orders', body);
     window.location.href = `/customer/orders/${response.id}`;
   };
 
   useEffect(() => {
-    setCart(localStorage.get('carrinho'));
+    setCart(JSON.parse(localStorage.getItem('carrinho')));
+    console.log(cart);
     const getSellers = async () => {
-      const { token, name } = localStorage.get('user');
+      const { token, name } = JSON.parse(localStorage.getItem('user'));
       setUserName(name);
       setToken(token);
       const response = await requestData('/customer/checkout');
+      console.log(response);
+      setSellerName(response[0].name);
       setSellers(response);
     };
     getSellers();
-    setTotal(totalPrice());
   }, []);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      setTotal(totalPrice());
+    } else {
+      setTotal(0);
+    }
+  }, [cart]);
+
+  const handleRemove = (id) => {
+    const carrinho = cart.filter((el) => el.productId !== id);
+
+    setCart(carrinho);
+  };
 
   const renderOption = (seller) => (
     <option key={ seller } value={ seller }>{ seller }</option>
@@ -76,22 +78,40 @@ export default function Checkout() {
       <Header screenType="products" userName={ userName } userType="customer" />
       <hr />
       <h3>Finalizar Pedido</h3>
-      {
-        cart && (cart.map(({ productId, name, quantity, price }, index) => (
-          <CheckoutCard
-            key={ index }
-            index={ index }
-            productId={ productId }
-            name={ name }
-            quantity={ quantity }
-            price={ price }
-          />
-        )))
-      }
+      <table>
+        <caption>Items</caption>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+            <th>Remover Item</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            cart && (cart.map(({ productId, name, quantity, price }, index) => (
+
+              <CheckoutCard
+                key={ index }
+                index={ index }
+                productId={ productId }
+                name={ name }
+                quantity={ quantity }
+                price={ price }
+                handleRemove={ handleRemove }
+              />
+            )))
+          }
+        </tbody>
+      </table>
+
       <div>
         Total:
         <span data-testid="customer_checkout__element-order-total-price">
-          { total }
+          { convert(total) }
         </span>
       </div>
       <h3>Detalhes e Endereço para entrega</h3>
@@ -104,7 +124,7 @@ export default function Checkout() {
         data-testid="customer_checkout__select-seller"
         onChange={ (event) => setSellerName(event.target.value) }
       >
-        { sellers && sellers.map((seller) => renderOption(seller)) }
+        { sellers && sellers.map((seller) => renderOption(seller.name)) }
       </select>
       <p>Endereço</p>
       <input
