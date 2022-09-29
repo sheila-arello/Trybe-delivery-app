@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+// const { Op } = require('sequelize');
 const { User, Product, Sale, SalesProduct } = require('../database/models');
 const CustomError = require('../middlewares/errors/custom.error');
 
@@ -19,7 +19,7 @@ module.exports = {
     // retornar apenas um array com os nomes dos vendedores
     const names = sellers.map((seller) => ({
       id: seller.id, 
-      name: seller.name
+      name: seller.name,
     }));
     return names;
   },
