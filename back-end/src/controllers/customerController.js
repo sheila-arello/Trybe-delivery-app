@@ -27,7 +27,7 @@ module.exports = {
     // console.log(req.id);
     const order = req.body;
     const created = await customerService.createSale(req.id, order);
-    res.status(200).json(created);
+    res.status(201).json(created);
   },
 
   async getOrderByOrderId(req, res) {

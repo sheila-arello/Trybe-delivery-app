@@ -4,13 +4,11 @@ import Header from '../../components/Header';
 import ProductCard from '../../components/ProductCard';
 import { requestData, setToken } from '../../services/requests';
 // import localStorage from '../../utils/localStorage';
-
 function Products({ history }) {
   let carrinho = [];
   const [products, setProducts] = useState([]);
   const [userName, setUserName] = useState('');
   const [cart, setCart] = useState([]);
-
   useEffect(() => {
     const getProducts = async () => {
       const { token, name } = JSON.parse(localStorage.getItem('user'));
@@ -21,19 +19,16 @@ function Products({ history }) {
     };
     getProducts();
   }, []);
-
   useEffect(() => {
     if (!localStorage.getItem('carrinho')) {
       localStorage.setItem('carrinho', JSON.stringify(cart));
     }
     localStorage.setItem('carrinho', JSON.stringify(cart));
   }, [cart]);
-
   const addItem = (obj) => {
     const { id: productId, name, price } = obj;
     const convertedPrice = parseFloat(price);
     let [newOrder] = cart.filter((el) => el.productId === productId);
-
     if (newOrder) {
       newOrder.quantity += 1;
       newOrder.subTotal = (convertedPrice * newOrder.quantity).toFixed(2);
@@ -41,15 +36,12 @@ function Products({ history }) {
       newOrder = { productId, name, price, quantity: 1, subTotal: price };
     }
     carrinho = [...cart.filter((el) => el.productId !== productId), newOrder];
-
     setCart(carrinho);
   };
-
   const subItem = (obj) => {
     const { id: productId, price } = obj;
     const convertedPrice = parseFloat(price);
     const [newOrder] = cart.filter((el) => el.productId === productId);
-
     if (newOrder) {
       if (newOrder.quantity > 0) {
         newOrder.quantity -= 1;
@@ -58,20 +50,16 @@ function Products({ history }) {
       }
       newOrder.subTotal = (convertedPrice * newOrder.quantity).toFixed(2);
     }
-
     if (newOrder.quantity === 0) {
       carrinho = [...cart.filter((el) => el.productId !== productId)];
       return setCart(carrinho);
     }
     carrinho = [...cart.filter((el) => el.productId !== productId), newOrder];
-
     setCart(carrinho);
   };
-
   const handleQuantity = (obj, quantity) => {
     const { id: productId, name, price } = obj;
     const convertedPrice = parseFloat(price);
-
     if (carrinho.length === 0) {
       const newOrder = {
         productId,
@@ -84,16 +72,13 @@ function Products({ history }) {
       setCart(carrinho);
     }
     const idx = carrinho.findIndex((el) => el.productId === productId);
-
     if (quantity === 0) {
       carrinho = [...cart.filter((el) => el.productId !== productId)];
       return setCart(carrinho);
     }
-
     carrinho[idx].quantity = quantity;
     setCart(carrinho);
   };
-
   const renderProducts = () => products
     .map(({ id, name, urlImage, price }) => products.length > 0 && (
       <ProductCard
@@ -105,12 +90,9 @@ function Products({ history }) {
         add={ addItem }
         sub={ subItem }
         handleQty={ handleQuantity }
-
       />
     ));
-
   const totalPrice = () => cart.reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0);
-
   return (
     <div>
       <Header screenType="products" userName={ userName } userType="customer" />
@@ -118,7 +100,6 @@ function Products({ history }) {
       <div>
         {renderProducts()}
       </div>
-
       <button
         type="button"
         data-testid="customer_products__checkout-bottom-value"
@@ -132,17 +113,13 @@ function Products({ history }) {
         disabled={ cart.length === 0 }
       >
         carrinho
-
       </button>
     </div>
   );
 }
-
 export default Products;
-
 Products.propTypes = {
   history: propTypes.shape({
     push: propTypes.func,
-
   }).isRequired,
 };

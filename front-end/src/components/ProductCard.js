@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
+import convert from '../utils/convert';
 
 export default function ProductCard({ id, name, price, image, add, sub, handleQty }) {
-  const convertedPrice = parseFloat(price).toFixed(2).replace('.', ',');
+  const convertedPrice = convert(price);
 
   const [quantity, setQuantity] = useState(0);
 
