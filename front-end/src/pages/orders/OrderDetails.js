@@ -14,13 +14,15 @@ function OrderDetails(props) {
   const orderType = 'order_details';
 
   async function getOrder() {
-    const orderId = pathname.split('/orders/')[1];
+    const pathnameArray = pathname.split('/');
+    const orderId = pathnameArray[pathnameArray.length - 1];
+    console.log(orderId);
     const response = await requestData(`/${userType}/orders/${orderId}`);
     setOrder(response);
   }
 
   useEffect(() => {
-    const { token, name } = JSON.parse(localStorage.getItem('info'));
+    const { token, name } = JSON.parse(localStorage.getItem('user'));
     if (name) { setUserName(name); }
     setToken(token);
     getOrder();

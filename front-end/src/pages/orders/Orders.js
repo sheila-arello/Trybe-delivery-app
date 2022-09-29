@@ -14,7 +14,7 @@ function Orders(props) {
   const orderType = 'orders';
 
   async function handleClick(id) {
-    const orderPath = `${pathname}/${id}`;
+    const orderPath = `orders/${id}`;
     history.push(orderPath);
   }
 
@@ -24,7 +24,7 @@ function Orders(props) {
   }
 
   useEffect(() => {
-    const { token, name } = JSON.parse(localStorage.getItem('info'));
+    const { token, name } = JSON.parse(localStorage.getItem('user'));
     if (name) { setUserName(name); }
     setToken(token);
     getOrders();
@@ -35,7 +35,11 @@ function Orders(props) {
       <Header screenType={ screenType } userName={ userName } userType={ userType } />
       <div>
         { orders.map((order, index) => (
-          <button type="button" key={ index } onClick={ handleClick }>
+          <button
+            type="button"
+            key={ index }
+            onClick={ () => handleClick(order.id) }
+          >
             <OrderCard
               order={ order }
               userType={ userType }

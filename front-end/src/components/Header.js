@@ -2,10 +2,17 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 function Header({ screenType, userName, userType }) {
-// console.log(screenType, userType); OK
-  const handleSubmit = async () => {
+  const handleToLeave = async () => {
     localStorage.clear();
     window.location.href = '/login';
+  };
+
+  const handleToCustomerOrders = async () => {
+    window.location.href = '/customer/orders';
+  };
+
+  const handleToProducts = async () => {
+    window.location.href = '/customer/products';
   };
 
   return (
@@ -15,9 +22,13 @@ function Header({ screenType, userName, userType }) {
           {
             screenType === 'products'
               ? (
-                <span data-testid="customer_products__element-navbar-link-products">
+                <button
+                  type="submit"
+                  data-testid="customer_products__element-navbar-link-products"
+                  onClick={ handleToProducts }
+                >
                   PRODUTOS
-                </span>
+                </button>
               )
               : (
                 <span data-testid="customer_products__element-navbar-link-orders">
@@ -29,9 +40,13 @@ function Header({ screenType, userName, userType }) {
         {
           userType === 'customer'
           && (
-            <span data-testid="customer_products__element-navbar-link-orders">
+            <button
+              type="submit"
+              data-testid="customer_products__element-navbar-link-orders"
+              onClick={ handleToCustomerOrders }
+            >
               MEUS PEDIDOS
-            </span>
+            </button>
           )
         }
         <span data-testid="customer_products__element-navbar-user-full-name">
@@ -40,7 +55,7 @@ function Header({ screenType, userName, userType }) {
         <button
           type="submit"
           data-testid="customer_products__element-navbar-link-logout"
-          onClick={ handleSubmit }
+          onClick={ handleToLeave }
         >
           Sair
         </button>
