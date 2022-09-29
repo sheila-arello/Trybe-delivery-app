@@ -12,7 +12,7 @@ function Login(props) {
   });
   const [button, setButton] = useState(true);
   const [error, setError] = useState(false);
-  const [info, setInfo] = useState({
+  const [user, setUser] = useState({
     name: '',
     email: '',
     role: '',
@@ -40,13 +40,13 @@ function Login(props) {
     try {
       const { response } = await requestPost('/login', login);
 
-      setInfo({ ...response });
+      setUser({ ...response });
       setError(false);
       if (response.role === 'seller') history.push(`${response.role}/orders`);
       if (response.role === 'customer') history.push('customer/products');
       if (response.role === 'administrator') history.push('admin/manage');
     } catch (err) {
-      setInfo({
+      setUser({
         name: '',
         email: '',
         role: '',
@@ -74,8 +74,8 @@ function Login(props) {
     validateLogin();
   }, [login]);
 
-  useEffect(() => info.token.length > 0
-    && localStorage.setItem('info', JSON.stringify(info)), [info]);
+  useEffect(() => user.token.length > 0
+    && localStorage.setItem('user', JSON.stringify(user)), [user]);
 
   return (
     <div>

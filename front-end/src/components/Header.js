@@ -2,10 +2,12 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 function Header({ screenType, userName, userType }) {
+// console.log(screenType, userType); OK
   const handleSubmit = async () => {
     localStorage.clear();
     window.location.href = '/login';
   };
+
   return (
     <div>
       <nav>
@@ -26,11 +28,11 @@ function Header({ screenType, userName, userType }) {
         </section>
         {
           userType === 'customer'
-          && (
-            <span data-testid="customer_products__element-navbar-link-orders">
-              MEUS PEDIDOS
-            </span>
-          )
+        && (
+          <span data-testid="customer_products__element-navbar-link-orders">
+            MEUS PEDIDOS
+          </span>
+        )
         }
         <span data-testid="customer_products__element-navbar-user-full-name">
           { userName }
@@ -51,4 +53,5 @@ Header.propTypes = {
   userName: propTypes.string.isRequired,
   userType: propTypes.string.isRequired,
 };
+
 export default Header;
