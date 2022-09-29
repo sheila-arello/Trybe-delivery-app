@@ -10,7 +10,7 @@ function CheckoutCard({
   handleRemove,
 }) {
   const prefix = 'customer_checkout__element-order-table';
-  const convertedPrice = parseFloat(price).toFixed(2).replace('.', ',');
+  const convertedPrice = parseFloat(price);
   return (
     <tr>
 
@@ -40,14 +40,14 @@ function CheckoutCard({
         data-testid={ `${prefix}-unit-price-${index}` }
         id="price"
       >
-        { convertedPrice }
+        { convertedPrice.toFixed(2).replace('.', ',') }
       </td>
 
       <td
         data-testid={ `${prefix}-sub-total-${index}` }
         id="quantity"
       >
-        { price * quantity }
+        { (convertedPrice * quantity).toFixed(2).replace('.', ',') }
       </td>
 
       <td>

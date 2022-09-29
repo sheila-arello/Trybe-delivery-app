@@ -34,7 +34,7 @@ export default function Checkout() {
   // console.log(cart);
   const totalPrice = () => cart
     .reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0)
-    .toFixed(2);
+    .toFixed(2).replace('.', ',');
 
   const handleSubmit = async () => {
     // enviar objeto do cart para o body e realizar a requisição POST
@@ -100,6 +100,7 @@ export default function Checkout() {
           <tr>
             <th>Item</th>
             <th>Descrição</th>
+            <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-total</th>
             <th>Remover Item</th>
