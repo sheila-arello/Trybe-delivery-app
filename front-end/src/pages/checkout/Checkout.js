@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import CheckoutCard from '../../components/CheckoutCard';
 import Header from '../../components/Header';
 import { requestData, requestPost, setToken } from '../../services/requests';
-import localStorage from '../../utils/localStorage';
 
 // const mockCart = [
 //   {
@@ -40,27 +39,28 @@ export default function Checkout() {
     // enviar objeto do cart para o body e realizar a requisição POST
     // para o back
     if (!cart) return null;
-
     const items = cart.map((prod) => ({
       productId: prod.productId,
       quantity: prod.quantity,
     }));
     const body = {
       sellerName,
-      totalPrice: total,
+      totalPrice: total.replace(',', '.'),
       deliveryAddress: address,
       deliveryNumber: number,
       items,
     };
-    console.log(body);
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    setToken(token);
     const response = await requestPost('/customer/orders', body);
     window.location.href = `/customer/orders/${response.id}`;
   };
 
   useEffect(() => {
-    setCart(localStorage.get('carrinho'));
+    setCart(JSON.parse(localStorage.getItem('carrinho')));
+    console.log(cart);
     const getSellers = async () => {
-      const { token, name } = localStorage.get('user');
+      const { token, name } = JSON.parse(localStorage.getItem('user'));
       setUserName(name);
       setToken(token);
       const response = await requestData('/customer/checkout');
