@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+// const { Op } = require('sequelize');
 const { User, Product, Sale, SalesProduct } = require('../database/models');
 const CustomError = require('../middlewares/errors/custom.error');
 
@@ -17,7 +17,10 @@ module.exports = {
       throw new CustomError(404, 'Not found');
     }
     // retornar apenas um array com os nomes dos vendedores
-    const names = sellers.map((seller) => seller.name);
+    const names = sellers.map((seller) => ({
+      id: seller.id, 
+      name: seller.name,
+    }));
     return names;
   },
 
@@ -77,13 +80,13 @@ module.exports = {
   },
 
   async createSale(userId, order) {
-    const sellerId = await User.findOne({ where: 
-      { [Op.and]: [{ role: 'seller' }, { name: order.sellerName }] } });
-    if (!sellerId) throw new CustomError(404, 'Unauthorized - Must be a Seller');
+    // const sellerId = await User.findOne({ where: 
+    //   { [Op.and]: [{ role: 'seller' }, { name: order.sellerName }] } });
+    // if (!sellerId) throw new CustomError(404, 'Unauthorized - Must be a Seller');
 
     const newOrder = {
         userId, // extrair do token
-        sellerId: sellerId.id, // busca o Id pelo nome da vendedora OU recebe do front direto o id
+        sellerId: order.sellerId, // busca o Id pelo nome da vendedora OU recebe do front direto o id
         totalPrice: order.totalPrice, // valor calculado pelo front
         deliveryAddress: order.deliveryAddress,
         deliveryNumber: order.deliveryNumber,
