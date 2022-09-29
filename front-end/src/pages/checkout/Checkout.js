@@ -22,12 +22,13 @@ export default function Checkout() {
     // enviar objeto do cart para o body e realizar a requisição POST
     // para o back
     if (!cart) return null;
+    const sellerFound = sellers.find((seller) => seller.name === sellerName);
     const items = cart.map((prod) => ({
       productId: prod.productId,
       quantity: prod.quantity,
     }));
     const body = {
-      sellerName,
+      sellerId: sellerFound.id,
       totalPrice: total,
       deliveryAddress: address,
       deliveryNumber: number,
@@ -48,7 +49,7 @@ export default function Checkout() {
       setToken(token);
       const response = await requestData('/customer/checkout');
       console.log(response);
-      setSellerName(response[0]);
+      setSellerName(response[0].name);
       setSellers(response);
     };
     getSellers();
@@ -123,7 +124,7 @@ export default function Checkout() {
         data-testid="customer_checkout__select-seller"
         onChange={ (event) => setSellerName(event.target.value) }
       >
-        { sellers && sellers.map((seller) => renderOption(seller)) }
+        { sellers && sellers.map((seller) => renderOption(seller.name)) }
       </select>
       <p>Endereço</p>
       <input
