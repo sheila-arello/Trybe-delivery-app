@@ -1,19 +1,16 @@
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 const CustomError = require('../errors/custom.error');
 require('dotenv').config();
-
 const jwtConfig = {
   expiresIn: '7d',
   algorithm: 'HS256',
 };
-
-const secret = `${process.env.JWT_SECRET}`;
-
+const secret = fs.readFileSync('./jwt.evaluation.key', { encoding: 'utf-8' });
 module.exports = {
   sign(payload) {
     return jwt.sign(payload, secret, jwtConfig);
   },
-
   verify(token) {
     try {
       if (!token) {

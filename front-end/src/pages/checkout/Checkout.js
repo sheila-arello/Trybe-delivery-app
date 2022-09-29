@@ -8,7 +8,7 @@ import convert from '../../utils/convert';
 export default function Checkout() {
   const [userName, setUserName] = useState('');
   const [sellers, setSellers] = useState([]);
-  const [sellerName, setSellerName] = useState();
+  const [sellerId, setSellerId] = useState();
   const [address, setAddress] = useState();
   const [number, setNumber] = useState();
   const [cart, setCart] = useState([]);
@@ -22,13 +22,12 @@ export default function Checkout() {
     // enviar objeto do cart para o body e realizar a requisição POST
     // para o back
     if (!cart) return null;
-    const sellerFound = sellers.find((seller) => seller.name === sellerName);
     const items = cart.map((prod) => ({
       productId: prod.productId,
       quantity: prod.quantity,
     }));
     const body = {
-      sellerId: sellerFound.id,
+      sellerId,
       totalPrice: total,
       deliveryAddress: address,
       deliveryNumber: number,
@@ -49,7 +48,7 @@ export default function Checkout() {
       setToken(token);
       const response = await requestData('/customer/checkout');
       console.log(response);
-      setSellerName(response[0].name);
+      setSellerId(response[0].id);
       setSellers(response);
     };
     getSellers();
@@ -69,8 +68,8 @@ export default function Checkout() {
     setCart(carrinho);
   };
 
-  const renderOption = (seller) => (
-    <option key={ seller } value={ seller }>{ seller }</option>
+  const renderOption = ({ id, name }) => (
+    <option key={ id } value={ id }>{ name }</option>
   );
 
   return (
@@ -120,11 +119,11 @@ export default function Checkout() {
       <select
         id="seller"
         name="seller"
-        value={ sellerName }
+        value={ sellerId }
         data-testid="customer_checkout__select-seller"
-        onChange={ (event) => setSellerName(event.target.value) }
+        onChange={ (event) => setSellerId(event.target.value) }
       >
-        { sellers && sellers.map((seller) => renderOption(seller.name)) }
+        { sellers.length && sellers.map((seller) => renderOption(seller)) }
       </select>
       <p>Endereço</p>
       <input
