@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
-import { Navigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import OrderCard from '../../components/OrderCard';
 import { requestData, setToken } from '../../services/requests';
@@ -8,6 +7,7 @@ import { requestData, setToken } from '../../services/requests';
 function Orders(props) {
   const [orders, setOrders] = useState([]);
   const [userName, setUserName] = useState('');
+  const { history } = props;
   const { history: { location: { pathname } } } = props;
   const screenType = pathname.includes('products') ? 'products' : 'order';
   const userType = pathname.includes('customer') ? 'customer' : 'seller';
@@ -15,7 +15,7 @@ function Orders(props) {
 
   async function handleClick(id) {
     const orderPath = `${pathname}/${id}`;
-    Navigate(orderPath);
+    history.push(orderPath);
   }
 
   async function getOrders() {
@@ -50,6 +50,7 @@ function Orders(props) {
 
 Orders.propTypes = {
   history: propTypes.shape({
+    push: propTypes.func.isRequired,
     location: propTypes.shape({
       pathname: propTypes.string.isRequired,
     }).isRequired,
