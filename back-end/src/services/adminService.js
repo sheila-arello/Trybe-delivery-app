@@ -14,10 +14,11 @@ module.exports = {
     const users = await User.findAll({ attributes: { exclude: ['password'] } });
 
     users.map((user) => {
-      const { role } = user
-      if(role !== 'administrator') {
-      allUsers.push(user.dataValues)}}
-    );
+      if (user.role !== 'administrator') {
+      allUsers.push(user.dataValues); 
+      }   
+      return user;
+    });
 
     return allUsers;
   },
