@@ -13,11 +13,6 @@ function Orders(props) {
   const userType = pathname.includes('customer') ? 'customer' : 'seller';
   const orderType = 'orders';
 
-  // /customer/products
-  // /customer/order
-  // /seller/products
-  // /seller/order
-
   async function handleClick(id) {
     const orderPath = `${pathname}/${id}`;
     Navigate(orderPath);

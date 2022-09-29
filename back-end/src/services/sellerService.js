@@ -27,7 +27,7 @@ module.exports = {
     
     if (!orderById) throw new CustomError(401, 'Unauthorized - wrong seller');
 
-    const response = {...orderById, sellerName: sellerById.name};
+    const response = { ...orderById, sellerName: sellerById.name };
     return response;
   },
 
