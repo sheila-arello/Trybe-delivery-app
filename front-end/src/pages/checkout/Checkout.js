@@ -3,23 +3,7 @@ import React, { useEffect, useState } from 'react';
 import CheckoutCard from '../../components/CheckoutCard';
 import Header from '../../components/Header';
 import { requestData, requestPost, setToken } from '../../services/requests';
-
-// const mockCart = [
-//   {
-//     productId: 1,
-//     name: 'xyz',
-//     price: '12.5',
-//     quantity: 1,
-//     subTotal: 10,
-//   },
-//   {
-//     productId: 2,
-//     name: 'jahdfjh',
-//     price: '1.5',
-//     quantity: 12,
-//     subTotal: 1020,
-//   },
-// ];
+import convert from '../../utils/convert';
 
 export default function Checkout() {
   const [userName, setUserName] = useState('');
@@ -32,8 +16,7 @@ export default function Checkout() {
 
   // console.log(cart);
   const totalPrice = () => cart
-    .reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0)
-    .toFixed(2).replace('.', ',');
+    .reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0);
 
   const handleSubmit = async () => {
     // enviar objeto do cart para o body e realizar a requisição POST
@@ -45,7 +28,7 @@ export default function Checkout() {
     }));
     const body = {
       sellerName,
-      totalPrice: total.replace(',', '.'),
+      totalPrice: total,
       deliveryAddress: address,
       deliveryNumber: number,
       items,
@@ -75,7 +58,7 @@ export default function Checkout() {
     if (cart.length > 0) {
       setTotal(totalPrice());
     } else {
-      setTotal('0,00');
+      setTotal(0);
     }
   }, [cart]);
 
@@ -127,7 +110,7 @@ export default function Checkout() {
       <div>
         Total:
         <span data-testid="customer_checkout__element-order-total-price">
-          { total }
+          { convert(total) }
         </span>
       </div>
       <h3>Detalhes e Endereço para entrega</h3>

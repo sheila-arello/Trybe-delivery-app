@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import convert from '../utils/convert';
 
 function CheckoutCard({
   index,
@@ -10,7 +11,7 @@ function CheckoutCard({
   handleRemove,
 }) {
   const prefix = 'customer_checkout__element-order-table';
-  const convertedPrice = parseFloat(price);
+  const convertedPrice = convert(price);
   return (
     <tr>
 
@@ -40,14 +41,14 @@ function CheckoutCard({
         data-testid={ `${prefix}-unit-price-${index}` }
         id="price"
       >
-        { convertedPrice.toFixed(2).replace('.', ',') }
+        { convertedPrice }
       </td>
 
       <td
         data-testid={ `${prefix}-sub-total-${index}` }
-        id="quantity"
+        id="subtotal"
       >
-        { (convertedPrice * quantity).toFixed(2).replace('.', ',') }
+        { convert(price * quantity) }
       </td>
 
       <td>
