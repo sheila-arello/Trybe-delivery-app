@@ -25,8 +25,6 @@ module.exports = {
   },
 
   async getProductById(id) {
-    // const { role, id } = await jwt.verify(token);
-    // if (role === 'customer') throw new CustomError(401, 'Unauthorized - Must be a Seller');
     const product = await Product.findByPk(id);
     if (!product) {
       throw new CustomError(404, 'Not found');
@@ -41,61 +39,39 @@ module.exports = {
     return ordersByUserId;
   },
 
-  async getOrderByOrderId(_userId, id) {
+  async getOrderByOrderId(userId, id) {
     // Eagle
-    // const orderById = await Sale.findOne({ 
-    //   where: { id },
-    //   include:
-    //     [
-    //       { model: User, foreignKey: 'sellerId', as: 'sellers', attributes: ['name'] },
-    //       { model: Product,
-    //         foreignKey: 'productId',
-    //         as: 'orders',
-    //         through: SalesProduct,
-    //         attributes: ['name'] },
-    //     ],
-    // });
-
-    // Lazy:
     const orderById = await Sale.findOne({ 
-      where: { id }, 
-      include: { model: User, foreignKey: 'sellerId', as: 'sellers', attributes: ['name'] },
+      where: { id },
+      include: [
+        { model: User,
+          as: 'sellers',
+          attributes: ['name'],
+        },
+        { model: Product, 
+          as: 'products', 
+          through: { attributes: ['quantity'] },
+        }],
     });
-
-    // const products = await SalesProduct.findAll({ 
-    //   where: { saleId: id },
-    //   include:
-    //     [{
-    //       model: Product,
-    //       foreignKey: 'productId',
-    //       as: 'orders',
-    //       through: { attributes: ['name'] },
-    //     }],
-    // });
-    // console.log(products);
+    
     if (!orderById) throw new CustomError(404, 'Not found');
-    // verificar se a oreder pertence ao usuario do token
-
+    // verifica se a order pertence ao usuario logado (do token)
+    if (userId !== orderById.userId) throw new CustomError(404, 'Unauthorized User');
     return orderById;
   },
 
   async createSale(userId, order) {
-    // const sellerId = await User.findOne({ where: 
-    //   { [Op.and]: [{ role: 'seller' }, { name: order.sellerName }] } });
-    // if (!sellerId) throw new CustomError(404, 'Unauthorized - Must be a Seller');
-
-    const newOrder = {
-        userId, // extrair do token
-        sellerId: order.sellerId, // busca o Id pelo nome da vendedora OU recebe do front direto o id
-        totalPrice: order.totalPrice, // valor calculado pelo front
+    const createOrder = {
+        userId,
+        sellerId: order.sellerId,
+        totalPrice: order.totalPrice,
         deliveryAddress: order.deliveryAddress,
         deliveryNumber: order.deliveryNumber,
-        // saleDate, // data da inserção no banco
         status: 'Pendente',
       };   
-    const insertedId = await Sale.create(newOrder);
-    await this.bulkCreateBySale(insertedId.id, order.items);
-    return insertedId;
+    const itemInserted = await Sale.create(createOrder);
+    await this.bulkCreateBySale(itemInserted.id, order.items);
+    return itemInserted;
   },
   
   async bulkCreateBySale(saleId, items) {

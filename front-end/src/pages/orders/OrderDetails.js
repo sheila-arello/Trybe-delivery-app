@@ -3,11 +3,12 @@ import propTypes from 'prop-types';
 import Header from '../../components/Header';
 import OrderHeader from '../../components/OrderHeader';
 import OrderProduct from '../../components/OrderProduct';
+import { requestData, setToken } from '../../services/requests';
 
 function OrderDetails(props) {
-  const [order, setOrder] = useState({});
+  const [order, setOrder] = useState();
   const [userName, setUserName] = useState('');
-  const [totalPrice, setTotalPrice] = useState([]);
+  // const [totalPrice, setTotalPrice] = useState([]);
   const { history: { location: { pathname } } } = props;
   const screenType = pathname.includes('products') ? 'products' : 'order';
   const userType = pathname.includes('customer') ? 'customer' : 'seller';
@@ -16,8 +17,8 @@ function OrderDetails(props) {
   async function getOrder() {
     const pathnameArray = pathname.split('/');
     const orderId = pathnameArray[pathnameArray.length - 1];
-    console.log(orderId);
-    const response = await requestData(`/${userType}/orders/${orderId}`);
+    const response = await requestData(`/${userType}/orders/${Number(orderId)}`);
+    console.log(response);
     setOrder(response);
   }
 
@@ -29,9 +30,10 @@ function OrderDetails(props) {
   }, []);
 
   return (
-    <div>
+    <div className="white">
       <Header screenType={ screenType } userName={ userName } userType={ userType } />
-      <OrderHeader userType={ userType } order={ order } orderType={ orderType } />
+      { order
+        && <OrderHeader userType={ userType } order={ order } orderType={ orderType } /> }
       <ul>
         <tr>
           <th>Item</th>
@@ -40,14 +42,14 @@ function OrderDetails(props) {
           <th>Valor Unitário</th>
           <th>Sub-total</th>
         </tr>
-        { order.map((product, index) => (
+        { order && order.products.map((product, index) => (
           <tr key={ index }>
             <OrderProduct
               userType={ userType }
               item={ index }
               id={ product.id }
               name={ product.name }
-              quantity={ product.quantity }
+              quantity={ product.SalesProduct.quantity }
               price={ product.price }
               totalPrice={ setTotalPrice }
               orderType={ orderType }
@@ -55,7 +57,7 @@ function OrderDetails(props) {
           </tr>
         ))}
         <span data-testid={ `${userType}_${orderType}__element-order-total-price` }>
-          { totalPrice.reduce((acc, cur) => acc + cur) }
+          {/* { totalPrice.length && totalPrice.reduce((acc, cur) => acc + cur) } */}
         </span>
       </ul>
     </div>

@@ -9,12 +9,13 @@ function Orders(props) {
   const [userName, setUserName] = useState('');
   const { history } = props;
   const { history: { location: { pathname } } } = props;
-  const screenType = pathname.includes('products') ? 'products' : 'order';
+  const screenType = pathname.includes('products') ? 'products' : 'orders';
   const userType = pathname.includes('customer') ? 'customer' : 'seller';
   const orderType = 'orders';
 
+  console.log(userType);
   async function handleClick(id) {
-    const orderPath = `orders/${id}`;
+    const orderPath = `/${userType}/orders/${id}`;
     history.push(orderPath);
   }
 
@@ -31,7 +32,7 @@ function Orders(props) {
   }, []);
 
   return (
-    <div>
+    <div className="white">
       <Header screenType={ screenType } userName={ userName } userType={ userType } />
       <div>
         { orders.map((order, index) => (
