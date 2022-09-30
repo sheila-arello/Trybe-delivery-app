@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { convert } from '../utils/convert';
 
 function OrderProduct(
   { userType, item, id, name, quantity, price, totalPrice, orderType },
@@ -30,13 +31,13 @@ function OrderProduct(
           `${userType}_${orderType}__element-order-table-unit-price-${index}`
         }
       >
-        { price }
+        { convert(price) }
       </td>
       <td /* data-testid= 45(customer) e 62(seller) */
         data-testid={ `${userType}_${orderType}__element-order-table-sub-total-${index}` }
       >
-        { totalPrice(Math.ceil(quantity * price).toFixed(2)) }
-        { Math.ceil(quantity * price).toFixed(2) }
+        { totalPrice(quantity * price) }
+        { convert(quantity * price) }
       </td>
     </>
   );

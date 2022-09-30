@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import CheckoutCard from '../../components/CheckoutCard';
 import Header from '../../components/Header';
 import { requestData, requestPost, setToken } from '../../services/requests';
-import convert from '../../utils/convert';
+import { convert } from '../../utils/convert';
 
 export default function Checkout() {
   const [userName, setUserName] = useState('');
@@ -41,7 +41,6 @@ export default function Checkout() {
 
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem('carrinho')));
-    console.log(cart);
     const getSellers = async () => {
       const { token, name } = JSON.parse(localStorage.getItem('user'));
       setUserName(name);

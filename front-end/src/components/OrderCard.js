@@ -1,11 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import OrderStatus from './OrderStatus';
+import { convert, convertDate } from '../utils/convert';
 
 function OrderCard({ order, userType, orderType }) {
   const { id, status, saleDate, totalPrice, deliveryAddress, deliveryNumber } = order;
-  const date = saleDate.split('T')[0];
-  // console.log(userType); OK
+  const date = convertDate(saleDate);
 
   return (
     <section>
@@ -26,7 +26,11 @@ function OrderCard({ order, userType, orderType }) {
         <p data-testid={ `${userType}_orders__element-order-date-${id}` }>
           { date }
         </p>
-        <p data-testid={ `${userType}_orders__element-card-price-${id}` }>{totalPrice}</p>
+        <p
+          data-testid={ `${userType}_orders__element-card-price-${id}` }
+        >
+          {convert(totalPrice)}
+        </p>
       </div>
       {
         userType === 'seller'

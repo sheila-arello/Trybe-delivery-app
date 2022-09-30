@@ -8,12 +8,13 @@ import { requestData, setToken } from '../../services/requests';
 function OrderDetails(props) {
   const [order, setOrder] = useState();
   const [userName, setUserName] = useState('');
-  // const [totalPrice, setTotalPrice] = useState([]);
+  const [totalPrice, setTotalPrice] = useState([]);
   const { history: { location: { pathname } } } = props;
   const screenType = pathname.includes('products') ? 'products' : 'order';
   const userType = pathname.includes('customer') ? 'customer' : 'seller';
   const orderType = 'order_details';
 
+  // const convertTotalPrice
   async function getOrder() {
     const pathnameArray = pathname.split('/');
     const orderId = pathnameArray[pathnameArray.length - 1];
@@ -57,7 +58,7 @@ function OrderDetails(props) {
           </tr>
         ))}
         <span data-testid={ `${userType}_${orderType}__element-order-total-price` }>
-          {/* { totalPrice.length && totalPrice.reduce((acc, cur) => acc + cur) } */}
+          { totalPrice.length && totalPrice.reduce((acc, cur) => acc + cur) }
         </span>
       </ul>
     </div>

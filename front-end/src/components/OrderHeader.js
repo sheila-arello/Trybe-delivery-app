@@ -1,11 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import OrderStatus from './OrderStatus';
+import { convertDate } from '../utils/convert';
 
 function OrderHeader({ userType, order, orderType }) {
   const { id, status, saleDate, sellerName } = order;
-  const date = saleDate.split('T')[0];
-  // "saleDate": "2022-09-30T01:13:32.000Z"
+  const date = convertDate(saleDate);
 
   // Possível erro de teste: tags p das linhas precisarem ser mudadas para label
   // por conta do data-testid

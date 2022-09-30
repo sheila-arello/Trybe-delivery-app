@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import convert from '../utils/convert';
+import { convert } from '../utils/convert';
 
 function CheckoutCard({
   index,

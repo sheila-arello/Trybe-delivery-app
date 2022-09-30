@@ -70,6 +70,12 @@ function Login(props) {
   // };
 
   useEffect(() => {
+    if (localStorage.getItem('user')) {
+      window.location.href = '/customer/products';
+    }
+  }, []);
+
+  useEffect(() => {
     validateLogin();
   }, [login]);
 

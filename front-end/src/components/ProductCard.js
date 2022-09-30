@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import convert from '../utils/convert';
+import { convert } from '../utils/convert';
 
 export default function ProductCard({ id, name, price, image, add, sub, handleQty }) {
   const convertedPrice = convert(price);

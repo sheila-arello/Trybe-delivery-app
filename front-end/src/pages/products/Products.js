@@ -20,9 +20,9 @@ function Products({ history }) {
     getProducts();
   }, []);
   useEffect(() => {
-    if (!localStorage.getItem('carrinho')) {
-      localStorage.setItem('carrinho', JSON.stringify(cart));
-    }
+    // if (!localStorage.getItem('carrinho')) {
+    //   localStorage.setItem('carrinho', JSON.stringify(cart));
+    // }
     localStorage.setItem('carrinho', JSON.stringify(cart));
   }, [cart]);
   const addItem = (obj) => {
