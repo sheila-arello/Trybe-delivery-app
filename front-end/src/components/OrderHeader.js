@@ -4,8 +4,15 @@ import OrderStatus from './OrderStatus';
 import { convertDate } from '../utils/convert';
 
 function OrderHeader({ userType, order, orderType }) {
-  const { id, status, saleDate, sellerName } = order;
+  const { id, status, saleDate, sellers: { name } } = order;
+  const sellerName = name;
   const date = convertDate(saleDate);
+  // const [isDisabledCustomer, setIsDisabledCustomer] = userState(true);
+
+  // useEffect(() => {
+  //   console.log(status);
+  //   if (status === 'preparando') setIsDisabledCustomer(false);
+  // }, [status]);
 
   // Possível erro de teste: tags p das linhas precisarem ser mudadas para label
   // por conta do data-testid
@@ -44,6 +51,7 @@ function OrderHeader({ userType, order, orderType }) {
               type="button"
               /* data-testid= 47(customer) */
               data-testid="customer_order_details__button-delivery-check"
+              disabled
             >
               MARCAR COMO ENTREGUE
             </button>
@@ -76,7 +84,9 @@ OrderHeader.propTypes = {
     id: propTypes.number,
     status: propTypes.string,
     saleDate: propTypes.string,
-    sellerName: propTypes.string,
+    sellers: propTypes.shape({
+      name: propTypes.string,
+    }).isRequired,
   }).isRequired,
   userType: propTypes.string.isRequired,
   orderType: propTypes.string.isRequired,
