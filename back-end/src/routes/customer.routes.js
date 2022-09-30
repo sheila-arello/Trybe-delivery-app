@@ -10,5 +10,7 @@ customerRouter.get('/checkout', customerController.getAllSellers);
 customerRouter.get('/orders/:id', customerController.getOrderByOrderId);
 customerRouter.get('/orders', customerController.getOrdersByCustomerId);
 customerRouter.post('/orders', customerController.createSale);
+customerRouter.put('/orders/:id', customerController.update);
+
 
 module.exports = customerRouter;

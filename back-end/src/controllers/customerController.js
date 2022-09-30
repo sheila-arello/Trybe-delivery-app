@@ -36,4 +36,13 @@ module.exports = {
     const order = await customerService.getOrderByOrderId(userId, id);
     res.status(200).json(order);
   },
+
+  async update(req, res) {
+    const { saleStatus } = req.body;
+    const { id } = req.params;
+
+    const orders = await customerService.update(saleStatus, id);
+
+    return res.status(200).json(orders);
+  },
 };
