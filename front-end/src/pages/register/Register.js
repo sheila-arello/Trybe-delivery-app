@@ -24,7 +24,6 @@ export default function Register(props) {
       history.push('/customer/products');
       setError(false);
     } catch (err) {
-      console.log(err);
       setError(true);
     }
   };

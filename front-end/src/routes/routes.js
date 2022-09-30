@@ -6,6 +6,7 @@ import Products from '../pages/products/Products';
 import Checkout from '../pages/checkout/Checkout';
 import Orders from '../pages/orders/Orders';
 import OrderDetails from '../pages/orders/OrderDetails';
+import Admin from '../pages/admin/Admin';
 
 function Routes() {
   return (
@@ -14,11 +15,12 @@ function Routes() {
       <Route exact path="/login" component={ Login } />
       <Route exact path="/register" component={ Register } />
       <Route exact path="/customer/products" component={ Products } />
-      <Route exact path="/customer/checkout" component={ Checkout } />
       <Route exact path="/customer/orders" component={ Orders } />
-      <Route exact path="/seller/orders" component={ Orders } />
+      <Route exact path="/customer/checkout" component={ Checkout } />
       <Route exact path="/customer/orders/:id" component={ OrderDetails } />
+      <Route exact path="/seller/orders" component={ Orders } />
       <Route exact path="/seller/orders/:id" component={ OrderDetails } />
+      <Route exect path="/admin/manage" component={ Admin } />
     </Switch>
   );
 }

@@ -13,7 +13,6 @@ function Orders(props) {
   const userType = pathname.includes('customer') ? 'customer' : 'seller';
   const orderType = 'orders';
 
-  console.log(userType);
   async function handleClick(id) {
     const orderPath = `/${userType}/orders/${id}`;
     history.push(orderPath);

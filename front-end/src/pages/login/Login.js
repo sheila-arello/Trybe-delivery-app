@@ -42,8 +42,9 @@ function Login(props) {
 
       setUser({ ...response });
       setError(false);
-      if (response.role === 'seller') { history.push(`${response.role}/orders`); }
+      if (response.role === 'seller') history.push(`${response.role}/orders`);
       if (response.role === 'customer') history.push('customer/products');
+      if (response.role === 'administrator') history.push('admin/manage');
     } catch (err) {
       setUser({
         name: '',

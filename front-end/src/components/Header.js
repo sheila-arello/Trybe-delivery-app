@@ -63,7 +63,6 @@ function Header({ screenType, userName, userType }) {
     </div>
   );
 }
-
 Header.propTypes = {
   screenType: propTypes.string.isRequired,
   userName: propTypes.string.isRequired,
