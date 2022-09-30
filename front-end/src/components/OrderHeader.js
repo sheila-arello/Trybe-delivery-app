@@ -6,7 +6,7 @@ import { setToken, requestPut } from '../services/requests';
 
 function OrderHeader({ userType, order, orderType }) {
   const { id, status, saleDate, sellers: { name } } = order;
-  const [orderStatus, setOrderStatus] = useState();
+  const [orderStatus, setOrderStatus] = useState(status);
   const [deliveredButton, setDeliveredButton] = useState(true);
   const [prepareButton, setPrepareButton] = useState(true);
   const [inRouteButton, setInRouteButton] = useState(true);
@@ -14,6 +14,7 @@ function OrderHeader({ userType, order, orderType }) {
   const date = convertDate(saleDate);
 
   async function putStatus(saleStatus) {
+    console.log(saleStatus);
     const { token } = JSON.parse(localStorage.getItem('user'));
     setToken(token);
     await requestPut(`${userType}/orders/${id}`, { saleStatus });
@@ -26,10 +27,15 @@ function OrderHeader({ userType, order, orderType }) {
   }
 
   useEffect(() => {
-    if (orderStatus !== status && orderStatus) {
+    if (userType === 'customer' && orderStatus !== status) {
+      setOrderStatus(status);
+    }
+
+    if (userType === 'seller' && orderStatus !== status && orderStatus) {
       // console.log('OLÁ');
       setOrderStatus(status);
     }
+
     enableButton(status);
   }, []);
 
@@ -62,7 +68,7 @@ function OrderHeader({ userType, order, orderType }) {
         )
       }
       <OrderStatus
-        status={ status }
+        status={ orderStatus }
         id={ id }
         userType={ userType }
         orderType={ orderType }
