@@ -69,6 +69,7 @@ function OrderHeader({ userType, order, orderType }) {
                 type="button"
                 /* data-testid= 57(seller) */
                 data-testid="seller_order_details__button-dispatch-check"
+                disabled
               >
                 SAIU PARA ENTREGA
               </button>
