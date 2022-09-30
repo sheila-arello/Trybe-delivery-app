@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { convert } from '../utils/convert';
 
 function OrderProduct(
-  { userType, item, id, name, quantity, price, totalPrice, orderType },
+  { userType, item, id, name, quantity, price, orderType },
 ) {
   const index = id - 1;
 
@@ -36,7 +36,6 @@ function OrderProduct(
       <td /* data-testid= 45(customer) e 62(seller) */
         data-testid={ `${userType}_${orderType}__element-order-table-sub-total-${index}` }
       >
-        { totalPrice(quantity * price) }
         { convert(quantity * price) }
       </td>
     </>
@@ -52,7 +51,7 @@ OrderProduct.propTypes = {
   name: propTypes.string.isRequired,
   quantity: propTypes.number.isRequired,
   price: propTypes.number.isRequired,
-  totalPrice: propTypes.func.isRequired,
+  // totalPrice: propTypes.func.isRequired,
   orderType: propTypes.string.isRequired,
 };
 

@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import OrderHeader from '../../components/OrderHeader';
 import OrderProduct from '../../components/OrderProduct';
 import { requestData, setToken } from '../../services/requests';
+import { convert } from '../../utils/convert';
 
 function OrderDetails(props) {
   const [order, setOrder] = useState();
@@ -14,13 +15,19 @@ function OrderDetails(props) {
   const userType = pathname.includes('customer') ? 'customer' : 'seller';
   const orderType = 'order_details';
 
-  // const convertTotalPrice
+  function totalPriceCount(orderArray) {
+    const pricesArray = orderArray.products
+      .map((product) => (product.SalesProduct.quantity * (+product.price)));
+
+    setTotalPrice(pricesArray);
+  }
+
   async function getOrder() {
     const pathnameArray = pathname.split('/');
     const orderId = pathnameArray[pathnameArray.length - 1];
     const response = await requestData(`/${userType}/orders/${Number(orderId)}`);
-    console.log(response);
     setOrder(response);
+    totalPriceCount(response);
   }
 
   useEffect(() => {
@@ -35,32 +42,35 @@ function OrderDetails(props) {
       <Header screenType={ screenType } userName={ userName } userType={ userType } />
       { order
         && <OrderHeader userType={ userType } order={ order } orderType={ orderType } /> }
-      <ul>
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-total</th>
-        </tr>
-        { order && order.products.map((product, index) => (
-          <tr key={ index }>
-            <OrderProduct
-              userType={ userType }
-              item={ index }
-              id={ product.id }
-              name={ product.name }
-              quantity={ product.SalesProduct.quantity }
-              price={ product.price }
-              totalPrice={ setTotalPrice }
-              orderType={ orderType }
-            />
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
           </tr>
-        ))}
-        <span data-testid={ `${userType}_${orderType}__element-order-total-price` }>
-          { totalPrice.length && totalPrice.reduce((acc, cur) => acc + cur) }
-        </span>
-      </ul>
+        </thead>
+        <tbody>
+          { order && order.products.map((product, index) => (
+            <tr key={ index }>
+              <OrderProduct
+                userType={ userType }
+                item={ index }
+                id={ product.id }
+                name={ product.name }
+                quantity={ product.SalesProduct.quantity }
+                price={ product.price }
+                orderType={ orderType }
+              />
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <span data-testid={ `${userType}_${orderType}__element-order-total-price` }>
+        { (totalPrice.length > 0) && convert(totalPrice.reduce((acc, cur) => acc + cur)) }
+      </span>
     </div>
   );
 }
