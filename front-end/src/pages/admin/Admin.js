@@ -30,12 +30,12 @@ function Admin(props) {
   };
 
   useEffect(() => {
-    const { token, name } = JSON.parse(localStorage.getItem('info'));
+    const { token, name } = JSON.parse(localStorage.getItem('user'));
     setToken(token);
     console.log(users);
     if (name) setUserName(name);
     getUsers();
-  }, []);
+  }, [users]);
 
   return (
     <div>

@@ -21,13 +21,17 @@ function AdminRegister({ att }) {
     ev.preventDefault();
     try {
       await requestPost('/admin/create', body);
+      setBody({ name: '',
+        email: '',
+        password: '',
+        role: 'customer' });
       setError(false);
       att();
     } catch (err) {
       setError(true);
     }
   };
-  const validateRegister = () => {
+  useEffect(() => {
     const { name, email, password } = body;
     const isRegisterValid = validate.register(name, email, password);
 
@@ -36,10 +40,6 @@ function AdminRegister({ att }) {
     } else {
       setButton(true);
     }
-  };
-
-  useEffect(() => {
-    validateRegister();
   }, [body]);
 
   return (

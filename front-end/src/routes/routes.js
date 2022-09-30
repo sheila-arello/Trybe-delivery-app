@@ -14,8 +14,8 @@ function Routes() {
       <Route exact path="/login" component={ Login } />
       <Route exact path="/register" component={ Register } />
       <Route exact path="/seller/orders" component={ Orders } />
-      <Route exect path="/admin/manage" component={ Admin } />
       <Route exact path="/customer/products" component={ Products } />
+      <Route exect path="/admin/manage" component={ Admin } />
       {/* <Route exact path="/customer/checkout" component={ Checkout } /> */}
     </Switch>
   );
