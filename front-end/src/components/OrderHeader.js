@@ -1,18 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import OrderStatus from './OrderStatus';
 import { convertDate } from '../utils/convert';
+import { setToken, requestPut } from '../services/requests';
 
 function OrderHeader({ userType, order, orderType }) {
   const { id, status, saleDate, sellers: { name } } = order;
+  const [orderStatus, setOrderStatus] = useState(status);
+  const [deliveredButton, setDeliveredButton] = useState(true);
+  const [prepareButton, setPrepareButton] = useState(true);
+  const [inRouteButton, setInRouteButton] = useState(true);
   const sellerName = name;
   const date = convertDate(saleDate);
-  // const [isDisabledCustomer, setIsDisabledCustomer] = userState(true);
 
-  // useEffect(() => {
-  //   console.log(status);
-  //   if (status === 'preparando') setIsDisabledCustomer(false);
-  // }, [status]);
+  async function putStatus(saleStatus) {
+    console.log(saleStatus);
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    setToken(token);
+    await requestPut(`${userType}/orders/${id}`, { saleStatus });
+  }
+
+  function enableButton(condition) {
+    if (condition === 'Pendente') { setPrepareButton(false); }
+    if (condition === 'Preparando') { setInRouteButton(false); }
+    if (condition === 'Em Trânsito') { setDeliveredButton(false); }
+  }
+
+  useEffect(() => {
+    if (userType === 'customer' && orderStatus !== status) {
+      setOrderStatus(status);
+    }
+
+    if (userType === 'seller' && orderStatus !== status && orderStatus) {
+      // console.log('OLÁ');
+      setOrderStatus(status);
+    }
+
+    enableButton(status);
+  }, []);
+
+  useEffect(() => {
+    putStatus(orderStatus);
+  }, [orderStatus]);
 
   // Possível erro de teste: tags p das linhas precisarem ser mudadas para label
   // por conta do data-testid
@@ -39,7 +68,7 @@ function OrderHeader({ userType, order, orderType }) {
         )
       }
       <OrderStatus
-        status={ status }
+        status={ orderStatus }
         id={ id }
         userType={ userType }
         orderType={ orderType }
@@ -51,7 +80,11 @@ function OrderHeader({ userType, order, orderType }) {
               type="button"
               /* data-testid= 47(customer) */
               data-testid="customer_order_details__button-delivery-check"
-              disabled
+              disabled={ deliveredButton }
+              onClick={ () => {
+                setOrderStatus('Entregue');
+                setDeliveredButton(true);
+              } }
             >
               MARCAR COMO ENTREGUE
             </button>
@@ -62,6 +95,12 @@ function OrderHeader({ userType, order, orderType }) {
                 type="button"
                 /* data-testid= 56(seller) */
                 data-testid="seller_order_details__button-preparing-check"
+                disabled={ prepareButton }
+                onClick={ () => {
+                  setOrderStatus('Preparando');
+                  setInRouteButton(false);
+                  setPrepareButton(true);
+                } }
               >
                 PREPARAR PEDIDO
               </button>
@@ -69,7 +108,12 @@ function OrderHeader({ userType, order, orderType }) {
                 type="button"
                 /* data-testid= 57(seller) */
                 data-testid="seller_order_details__button-dispatch-check"
-                disabled
+                disabled={ inRouteButton }
+                onClick={ () => {
+                  setOrderStatus('Em Trânsito');
+                  setInRouteButton(true);
+                  setDeliveredButton(false);
+                } }
               >
                 SAIU PARA ENTREGA
               </button>

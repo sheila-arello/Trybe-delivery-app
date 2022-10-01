@@ -41,7 +41,11 @@ function OrderDetails(props) {
     <div className="white">
       <Header screenType={ screenType } userName={ userName } userType={ userType } />
       { order
-        && <OrderHeader userType={ userType } order={ order } orderType={ orderType } /> }
+        && <OrderHeader
+          userType={ userType }
+          order={ order }
+          orderType={ orderType }
+        /> }
       <table>
         <thead>
           <tr>

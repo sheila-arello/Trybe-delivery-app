@@ -83,4 +83,10 @@ module.exports = {
       }));
     await SalesProduct.bulkCreate(map);
   },
+
+  async update(saleStatus, saleId) {
+    await Sale.update({ status: saleStatus }, { where: { id: saleId } });
+
+    return 'Update successfully';
+  },
 };

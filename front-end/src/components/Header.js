@@ -11,6 +11,10 @@ function Header({ screenType, userName, userType }) {
     window.location.href = '/customer/orders';
   };
 
+  const handleToSellerOrders = async () => {
+    window.location.href = '/seller/orders';
+  };
+
   const handleToProducts = async () => {
     window.location.href = '/customer/products';
   };
@@ -31,9 +35,16 @@ function Header({ screenType, userName, userType }) {
                 </button>
               )
               : (
-                <span data-testid="customer_products__element-navbar-link-orders">
+                <button
+                  type="button"
+                  data-testid="customer_products__element-navbar-link-orders"
+                  onClick={ () => {
+                    if (userType === 'customer') handleToCustomerOrders();
+                    if (userType === 'seller') handleToSellerOrders();
+                  } }
+                >
                   {userType === 'administrator' ? 'GERENCIAR USUÁRIO' : 'PEDIDOS'}
-                </span>
+                </button>
               )
           }
         </section>
