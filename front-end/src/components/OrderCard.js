@@ -8,32 +8,38 @@ function OrderCard({ order, userType, orderType }) {
   const date = convertDate(saleDate);
 
   return (
-    <section>
-      <div>
-        <p data-testid={ `${userType}_orders__element-order-id-${id}` }>
-          Pedido
-          <br />
-          { id }
-        </p>
-      </div>
-      <OrderStatus
-        status={ status }
-        id={ id }
-        userType={ userType }
-        orderType={ orderType }
-      />
-      <div>
-        <p data-testid={ `${userType}_orders__element-order-date-${id}` }>
-          { date }
-        </p>
-        <p
-          data-testid={ `${userType}_orders__element-card-price-${id}` }
-        >
-          {convert(totalPrice)}
-        </p>
-      </div>
-      {
-        userType === 'seller'
+    <div>
+      <section className="card card-side bg-base-100 shadow-xl">
+        <div className="card-body">
+          <div>
+            <p
+              data-testid={ `${userType}_orders__element-order-id-${id}` }
+              className=" text-yellow-700"
+            >
+              Pedido
+              { id }
+            </p>
+          </div>
+          <div>
+            <OrderStatus
+              status={ status }
+              id={ id }
+              userType={ userType }
+              orderType={ orderType }
+            />
+          </div>
+          <div>
+            <p data-testid={ `${userType}_orders__element-order-date-${id}` }>
+              { date }
+            </p>
+            <p
+              data-testid={ `${userType}_orders__element-card-price-${id}` }
+            >
+              {convert(totalPrice)}
+            </p>
+          </div>
+          {
+            userType === 'seller'
         && (
           <div>
             <p data-testid={ `seller_orders__element-card-address-${id}` }>
@@ -41,8 +47,10 @@ function OrderCard({ order, userType, orderType }) {
             </p>
           </div>
         )
-      }
-    </section>
+          }
+        </div>
+      </section>
+    </div>
   );
 }
 

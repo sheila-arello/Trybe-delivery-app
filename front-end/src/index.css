@@ -1,15 +1,22 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
 body {
-  background-color: black;
+  background: black;
+  display: table;
+  font-family: -apple-system , BlinkMacSystemFont , Segoe UI , Roboto , Oxygen , Ubuntu , Cantarell , Fira Sans , Droid Sans , Helvetica Neue , sans-serif;
+  height: 100vh;
+  margin: 0;
+  width: 100%;
 }
 
-.error {
-  background-color: white;
-}
+@layer base {
 
-.cadastro {
-  background-color: white;
-}
-
-.white {
-  background-color: white;
+  input[ type = 'number' ]::-webkit-inner-spin-button, input[ type = 'number' ]::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
 }

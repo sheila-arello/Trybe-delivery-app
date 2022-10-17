@@ -72,81 +72,94 @@ export default function Checkout() {
   );
 
   return (
-    <div className="white">
+    <div>
       <Header screenType="products" userName={ userName } userType="customer" />
       <hr />
-      <h3>Finalizar Pedido</h3>
-      <table>
-        <caption>Items</caption>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-            <th>Remover Item</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            cart && (cart.map(({ productId, name, quantity, price }, index) => (
+      <div className="p-6">
+        <h2 className="text-d-orange my-5 font-bold">Meus Pedidos</h2>
+        {
+          cart && (cart.map(({ productId, name, quantity, price }, index) => (
 
-              <CheckoutCard
-                key={ index }
-                index={ index }
-                productId={ productId }
-                name={ name }
-                quantity={ quantity }
-                price={ price }
-                handleRemove={ handleRemove }
-              />
-            )))
-          }
-        </tbody>
-      </table>
+            <CheckoutCard
+              key={ index }
+              index={ index }
+              productId={ productId }
+              name={ name }
+              quantity={ quantity }
+              price={ price }
+              handleRemove={ handleRemove }
+            />
+          )))
+        }
 
-      <div>
-        Total:
-        <span data-testid="customer_checkout__element-order-total-price">
-          { convert(total) }
-        </span>
       </div>
-      <h3>Detalhes e Endereço para entrega</h3>
-      <hr />
-      <p>Vendedora Responsável</p>
-      <select
-        id="seller"
-        name="seller"
-        value={ sellerId }
-        data-testid="customer_checkout__select-seller"
-        onChange={ (event) => setSellerId(event.target.value) }
-      >
-        { sellers.length && sellers.map((seller) => renderOption(seller)) }
-      </select>
-      <p>Endereço</p>
-      <input
-        type="text"
-        data-testid="customer_checkout__input-address"
-        id="address"
-        value={ address }
-        onChange={ (event) => setAddress(event.target.value) }
-      />
-      <p>Número</p>
-      <input
-        type="text"
-        data-testid="customer_checkout__input-address-number"
-        id="number"
-        value={ number }
-        onChange={ (event) => setNumber(event.target.value) }
-      />
-      <button
-        type="submit"
-        data-testid="customer_checkout__button-submit-order"
-        onClick={ handleSubmit }
-      >
-        Finalizar Pedido
-      </button>
+      <div className="p-4">
+        <div className="my-5">
+          <span className="text-d-orange mr-4 font-bold">Total:</span>
+          <span
+            data-testid="customer_checkout__element-order-total-price"
+            className="text-white"
+          >
+            { convert(total) }
+          </span>
+        </div>
+        <hr />
+        <h3 className="text-white my-5 font-bold">Detalhes e Endereço para entrega</h3>
+        <p className="text-d-orange my-5">Vendedora Responsável</p>
+        <select
+          id="seller"
+          name="seller"
+          value={ sellerId }
+          data-testid="customer_checkout__select-seller"
+          onChange={ (event) => setSellerId(event.target.value) }
+          className="select select-bordered w-full max-w-xs"
+        >
+          { sellers.length && sellers.map((seller) => renderOption(seller)) }
+        </select>
+        <p className="text-d-orange my-5">Endereço</p>
+        <input
+          type="text"
+          data-testid="customer_checkout__input-address"
+          id="address"
+          value={ address }
+          onChange={ (event) => setAddress(event.target.value) }
+          className="input input-bordered w-full max-w-xs"
+          placeholder="Alameda dos Anjos"
+        />
+        <p className="text-d-orange my-5">Número</p>
+        <input
+          type="number"
+          data-testid="customer_checkout__input-address-number"
+          id="number"
+          value={ number }
+          onChange={ (event) => setNumber(event.target.value) }
+          className="input input-bordered w-full max-w-xs"
+          placeholder="504"
+        />
+        <br />
+        <div className="flex justify-start">
+          <button
+            type="submit"
+            data-testid="customer_checkout__button-submit-order"
+            onClick={ handleSubmit }
+            className="
+              border-2
+              border-d-orange
+              rounded
+              px-3
+              py-2
+              my-10
+              text-d-orange
+              transition-all
+              hover:border-black
+              hover:bg-d-orange
+              hover:text-black
+              "
+          >
+            Finalizar Pedido
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

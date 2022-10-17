@@ -56,20 +56,6 @@ function Login(props) {
     }
   };
 
-  // const handleSucess = () => {
-  //   const MySwal = withReactContent(Swal);
-  //   const success = MySwal.fire({
-  //     title: <strong>login efetuado com sucesso!</strong>,
-  //     html: <i>bem-vindo(a) ao bar do seu zé</i>,
-  //     icon: 'success',
-  //   });
-  //   const fail = MySwal.fire({
-  //     title: <strong>usuário não encontrado!</strong>,
-  //     html: <i>tente novamente</i>,
-  //     icon: 'success',
-  //   });
-  // };
-
   useEffect(() => {
     if (localStorage.getItem('user')) {
       window.location.href = '/customer/products';
@@ -84,50 +70,61 @@ function Login(props) {
     && localStorage.setItem('user', JSON.stringify(user)), [user]);
 
   return (
-    <div>
+    <div className="flex justify-center flex-col items-center  gap-2">
       <img src={ caneca } alt="caneca" />
       <div>
-        <h1>Vamos tomar uma?</h1>
+        <h1 className="text-white text-xl font-mono mb-2">Vamos tomar uma?</h1>
       </div>
       <div>
-        <form onSubmit={ handleSubmit }>
-          <input
-            type="text"
-            placeholder="Login"
-            aria-label="Full name"
-            name="email"
-            value={ login.email }
-            data-testid="common_login__input-email"
-            onChange={ handleChange }
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            aria-label="Full name"
-            name="password"
-            value={ login.password }
-            data-testid="common_login__input-password"
-            onChange={ handleChange }
-          />
+        <form
+          onSubmit={ handleSubmit }
+          className="flex justify-center flex-col items-center gap-6"
+        >
+          <label htmlFor="email" className="text-white">
+            Email
+            <input
+              type="text"
+              placeholder="Login"
+              aria-label="Full name"
+              name="email"
+              value={ login.email }
+              data-testid="common_login__input-email"
+              onChange={ handleChange }
+              className="w-full max-w-xs bg-transparent border-b-2"
+            />
+          </label>
+          <label htmlFor="password" className="text-white">
+            Senha
+            <input
+              type="password"
+              placeholder="Password"
+              aria-label="Full name"
+              name="password"
+              value={ login.password }
+              data-testid="common_login__input-password"
+              onChange={ handleChange }
+              className="input-borderedput
+                w-full max-w-xs bg-transparent border-b-2 "
+            />
+          </label>
           <button
-            className="bg-transparent hover:bg-yellow-500
-        text-white font-semibold
-         hover:text-white py-2 px-4 border border-yellow-400
-         hover:border-transparent rounded"
+            className="hover:bg-yellow-500
+              text-white font-semibold
+              hover:text-white py-2 px-4 border border-yellow-400
+              hover:border-transparent rounded w-full font-mono bg-yellow-500"
             type="submit"
             name="button"
             data-testid="common_login__button-login"
             disabled={ button }
           >
-
-            Login
+            Entrar
           </button>
 
           <button
             className="bg-transparent hover:bg-yellow-500
-        text-white font-semibold
-         hover:text-white py-2 px-4 border border-yellow-400
-         hover:border-transparent rounded"
+            text-white font-semibold
+             hover:text-white py-2 px-4 border border-yellow-400
+             hover:border-transparent rounded w-full font-mono"
             type="button"
             data-testid="common_login__button-register"
             name="register"

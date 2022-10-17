@@ -38,44 +38,39 @@ function OrderDetails(props) {
   }, []);
 
   return (
-    <div className="white">
+    <>
       <Header screenType={ screenType } userName={ userName } userType={ userType } />
-      { order
-        && <OrderHeader
-          userType={ userType }
-          order={ order }
-          orderType={ orderType }
-        /> }
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-          </tr>
-        </thead>
-        <tbody>
-          { order && order.products.map((product, index) => (
-            <tr key={ index }>
-              <OrderProduct
-                userType={ userType }
-                item={ index }
-                id={ product.id }
-                name={ product.name }
-                quantity={ product.SalesProduct.quantity }
-                price={ product.price }
-                orderType={ orderType }
-              />
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <span data-testid={ `${userType}_${orderType}__element-order-total-price` }>
-        { (totalPrice.length > 0) && convert(totalPrice.reduce((acc, cur) => acc + cur)) }
-      </span>
-    </div>
+      <div>
+        { order
+        && <OrderHeader userType={ userType } order={ order } orderType={ orderType } /> }
+        <div className="p-2 flex flex-col">
+          <div className="flex flex-col justify-center">
+            { order && order.products.map((product, index) => (
+              <tr key={ index }>
+                <OrderProduct
+                  userType={ userType }
+                  item={ index }
+                  id={ product.id }
+                  name={ product.name }
+                  quantity={ product.SalesProduct.quantity }
+                  price={ product.price }
+                  orderType={ orderType }
+                />
+              </tr>
+            ))}
+          </div>
+          <span
+            data-testid={ `${userType}_${orderType}__element-order-total-price` }
+            className="btn btn-warning mb-10 mt-2"
+          >
+            {
+              (totalPrice.length > 0)
+              && convert(totalPrice.reduce((acc, cur) => acc + cur))
+            }
+          </span>
+        </div>
+      </div>
+    </>
   );
 }
 

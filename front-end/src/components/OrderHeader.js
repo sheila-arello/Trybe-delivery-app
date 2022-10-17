@@ -42,6 +42,7 @@ function OrderHeader({ userType, order, orderType }) {
     console.log(buttonState);
     return (
       <button
+        className="btn btn-warning"
         type="button"
         data-testid={ dataTesteid }
         disabled={ buttonState !== position }
@@ -65,27 +66,29 @@ function OrderHeader({ userType, order, orderType }) {
   }
 
   return (
-    <section>
-      <p /* data-testid= 37(customer) e 53(seller) */
+    <section
+      className="mt-4 mb-4 bg-white flex justify-between items-center gap-2 p-2 flex-wrap"
+    >
+      <p
         data-testid={ `${userType}_${orderType}__element-order-details-label-order-id` }
+        className="font-bold"
       >
-        { `Pedido ${id}` }
+        {`Pedido ${id}`}
       </p>
       <p /* data-testid= 39(customer) e 55(seller) */
         data-testid={ `${userType}_${orderType}__element-order-details-label-order-date` }
+        className="font-bold"
       >
-        { date }
+        {date}
       </p>
-      {
-        userType === 'customer'
-        && (
-          <p /* data-testid= 38(customer) */
-            data-testid="customer_order_details__element-order-details-label-seller-name"
-          >
-            { sellerName }
-          </p>
-        )
-      }
+      {userType === 'customer' && (
+        <p /* data-testid= 38(customer) */
+          className="font-bold"
+          data-testid="customer_order_details__element-order-details-label-seller-name"
+        >
+          {sellerName}
+        </p>
+      )}
       <OrderStatus
         status={ orderStatus }
         id={ id }

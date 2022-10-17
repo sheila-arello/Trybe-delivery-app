@@ -11,6 +11,7 @@ function OrderStatus({ status, id, userType, orderType }) {
           && (
             <p /* data-testid= 34(customer) e 49(seller) */
               data-testid={ `${userType}_${orderType}__element-delivery-status-${id}` }
+              className="font-bold"
             >
               { status }
             </p>
@@ -24,6 +25,7 @@ function OrderStatus({ status, id, userType, orderType }) {
                 `${userType}_${orderType}`
                 + `__element-order-details-label-delivery-status-${index}`
               }
+              className="font-bold"
             >
               { status }
             </p>
@@ -33,6 +35,7 @@ function OrderStatus({ status, id, userType, orderType }) {
               data-testid={
                 `${userType}_${orderType}__element-order-details-label-delivery-status`
               }
+              className="font-bold"
             >
               { status }
             </p>

@@ -35,7 +35,7 @@ function Admin(props) {
     console.log(users);
     if (name) setUserName(name);
     getUsers();
-  }, [users]);
+  }, []);
 
   return (
     <div>
@@ -50,7 +50,17 @@ function Admin(props) {
           </span>
         ) : ''}
       <AdminRegister att={ att } className="App" />
-      <table>
+      <div>
+        {users ? users.map((element, index) => (
+          <AdminCard
+            key={ element.id }
+            users={ element }
+            tableId={ index + 1 }
+            att={ att }
+          />
+        )) : 'Loading'}
+      </div>
+      {/* <table>
         <caption>Lista de usuários</caption>
         <thead>
           <tr>
@@ -71,7 +81,7 @@ function Admin(props) {
             />
           )) : 'Loading'}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }

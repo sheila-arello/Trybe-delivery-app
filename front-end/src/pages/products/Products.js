@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
+import { MdShoppingCart } from 'react-icons/md';
 import Header from '../../components/Header';
 import ProductCard from '../../components/ProductCard';
 import { requestData, setToken } from '../../services/requests';
+
 // import localStorage from '../../utils/localStorage';
 function Products({ history }) {
   let carrinho = [];
@@ -94,27 +96,31 @@ function Products({ history }) {
     ));
   const totalPrice = () => cart.reduce((acc, curr) => acc + parseFloat(curr.subTotal), 0);
   return (
-    <div>
+    <>
       <Header screenType="products" userName={ userName } userType="customer" />
-      {/* <Header screenType="products" userType="customer" userName={ userName } /> */}
-      <div>
-        {renderProducts()}
+      <div className="w-full">
+        <div className="flex justify-center items-center mb-4">
+          <button
+            type="button"
+            data-testid="customer_products__button-cart"
+            onClick={ () => history.push('/customer/checkout') }
+            disabled={ cart.length === 0 }
+            className="btn btn-warning gap-10 w-96 mt-10"
+          >
+            <div
+              className="badge bg-black w-36 h-10 rounded"
+              data-testid="customer_products__checkout-bottom-value"
+            >
+              {`${totalPrice().toFixed(2).replace('.', ',')}`}
+            </div>
+            <MdShoppingCart className="text-4xl" />
+          </button>
+        </div>
+        <div className="flex flex-wrap gap-6 justify-center">
+          {renderProducts()}
+        </div>
       </div>
-      <button
-        type="button"
-        data-testid="customer_products__checkout-bottom-value"
-      >
-        {`${totalPrice().toFixed(2).replace('.', ',')}`}
-      </button>
-      <button
-        type="button"
-        data-testid="customer_products__button-cart"
-        onClick={ () => history.push('/customer/checkout') }
-        disabled={ cart.length === 0 }
-      >
-        carrinho
-      </button>
-    </div>
+    </>
   );
 }
 export default Products;

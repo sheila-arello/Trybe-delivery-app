@@ -10,57 +10,38 @@ function CheckoutCard({
   price,
   handleRemove,
 }) {
-  const prefix = 'customer_checkout__element-order-table';
+  // const prefix = 'customer_checkout__element-order-table';
   const convertedPrice = convert(price);
   return (
-    <tr>
+    <div className="p-2">
+      <div className="card card-side bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title text-yellow-700">{`${index + 1} ${name}`}</h2>
+          <div className="flex justify-between gap-6">
+            <h3 className="font-medium">Quantidade</h3>
+            <span className="text-center">{quantity}</span>
+          </div>
+          <div className="flex justify-between gap-6">
+            <h3 className="font-medium">Preço Unitário</h3>
+            <span className="text-center w-3">{convertedPrice}</span>
+          </div>
+          <div className="flex justify-between gap-6">
+            <h3 className="font-medium">Sub Total</h3>
+            <span className="text-center w-3">{convert(price * quantity)}</span>
+          </div>
+          <div className="card-actions justify-center">
+            <button
+              type="button"
+              className="btn btn-outline btn-warning"
+              onClick={ () => handleRemove(productId) }
+            >
+              Remover
 
-      <td
-        data-testid={ `${prefix}-item-number-${index}` }
-        id="index"
-      >
-        { index + 1 }
-      </td>
-
-      <td
-        data-testid={ `${prefix}-name-${index}` }
-        id="name"
-      >
-        { name }
-
-      </td>
-
-      <td
-        data-testid={ `${prefix}-quantity-${index}` }
-        id="quantity"
-      >
-        { quantity }
-      </td>
-
-      <td
-        data-testid={ `${prefix}-unit-price-${index}` }
-        id="price"
-      >
-        { convertedPrice }
-      </td>
-
-      <td
-        data-testid={ `${prefix}-sub-total-${index}` }
-        id="subtotal"
-      >
-        { convert(price * quantity) }
-      </td>
-
-      <td>
-        <button
-          type="button"
-          data-testid={ `${prefix}-remove-${index}` }
-          onClick={ () => handleRemove(productId) }
-        >
-          Remover
-        </button>
-      </td>
-    </tr>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

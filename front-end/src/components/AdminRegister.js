@@ -43,7 +43,7 @@ function AdminRegister({ att }) {
   }, [body]);
 
   return (
-    <div>
+    <div className="p-4">
       {error ? (
         <span
           className="error"
@@ -52,11 +52,13 @@ function AdminRegister({ att }) {
           Conflict - User already exists in the dataBase
         </span>
       ) : ''}
-      <h2 className="span">Cadastrar novo usuário</h2>
+      <h3 className="text-white my-5 font-bold">Cadastrar novo usuário</h3>
       <form onSubmit={ handleSubmit }>
-        <label htmlFor="name">
+        <label
+          htmlFor="name"
+          className="text-d-orange my-3"
+        >
           Nome
-          <br />
           <input
             type="text"
             placeholder="Nome e sobrenome"
@@ -65,24 +67,32 @@ function AdminRegister({ att }) {
             name="name"
             value={ body.name }
             onChange={ handleChange }
+            className="input input-bordered w-full ml-5 max-w-xs"
           />
         </label>
-        <label htmlFor="email">
+        <br />
+        <label
+          htmlFor="email"
+          className="text-d-orange my-3"
+        >
           Email
-          <br />
           <input
             type="email"
-            placeholder="Nome e sobrenome"
+            placeholder="email"
             data-testid="admin_manage__input-email"
             id="email"
             name="email"
             value={ body.email }
             onChange={ handleChange }
+            className="input input-bordered w-full ml-5 max-w-xs"
           />
         </label>
-        <label htmlFor="password">
+        <br />
+        <label
+          htmlFor="password"
+          className="text-d-orange my-3"
+        >
           Senha
-          <br />
           <input
             type="password"
             data-testid="admin_manage__input-password"
@@ -90,26 +100,45 @@ function AdminRegister({ att }) {
             name="password"
             value={ body.password }
             onChange={ handleChange }
+            className="input input-bordered w-full ml-5 max-w-xs"
           />
         </label>
-        <label htmlFor="role">
+        <br />
+        <label
+          htmlFor="role"
+          className="text-d-orange my-3"
+        >
           Tipo
-          <br />
           <select
             name="role"
             data-testid="admin_manage__select-role"
             id="role"
             onChange={ handleChange }
+            className="select select-bordered w-full ml-6 max-w-xs"
           >
             <option default value="customer">Cliente</option>
             <option value="seller">Vendedor</option>
             <option value="administrator">Administrador</option>
           </select>
         </label>
+        <br />
         <button
           type="submit"
           data-testid="admin_manage__button-register"
           disabled={ button }
+          className="
+            border-2
+            border-d-orange
+            rounded
+            px-3
+            py-2
+            my-10
+            text-d-orange
+            transition-all
+            hover:border-black
+            hover:bg-d-orange
+            hover:text-black
+            "
         >
           Cadastrar
         </button>

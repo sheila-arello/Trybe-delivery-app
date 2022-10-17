@@ -33,7 +33,7 @@ function Orders(props) {
   return (
     <div className="white">
       <Header screenType={ screenType } userName={ userName } userType={ userType } />
-      <div>
+      <div className="flex justify-center flex-col p-6 gap-3 mb-2">
         { orders.map((order, index) => (
           <button
             type="button"

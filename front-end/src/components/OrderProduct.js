@@ -6,39 +6,59 @@ function OrderProduct(
   { userType, item, id, name, quantity, price, orderType },
 ) {
   const index = id - 1;
+  const element = '__element-order-table';
 
   return (
-    <>
-      <td /* data-testid= 41(customer) e 58(seller) */
-        data-testid={
-          `${userType}_${orderType}__element-order-table-item-number-${index}`
-        }
-      >
-        { item }
-      </td>
-      <td /* data-testid= 42(customer) e 59(seller) */
-        data-testid={ `${userType}_${orderType}__element-order-table-name-${index}` }
-      >
-        { name }
-      </td>
-      <td /* data-testid= 43(customer) e 60(seller) */
-        data-testid={ `${userType}_${orderType}__element-order-table-quantity-${index}` }
-      >
-        { quantity }
-      </td>
-      <td /* data-testid= 44(customer) e 61(seller) */
-        data-testid={
-          `${userType}_${orderType}__element-order-table-unit-price-${index}`
-        }
-      >
-        { convert(price) }
-      </td>
-      <td /* data-testid= 45(customer) e 62(seller) */
-        data-testid={ `${userType}_${orderType}__element-order-table-sub-total-${index}` }
-      >
-        { convert(quantity * price) }
-      </td>
-    </>
+    <div className="p-4">
+      <div className="card card-side bg-base-100 shadow-xl">
+        <div className="card-body">
+          <div className="flex justify-between gap-6">
+            <h3 className="font-bold">Item</h3>
+            <p
+              data-testid={ `${userType}_${orderType}${element}-item-number-${index}` }
+            >
+              {item + 1}
+            </p>
+          </div>
+          <div className="flex justify-between gap-6">
+            <h3 className="font-bold">Descrição</h3>
+            <p
+              data-testid={ `${userType}_${orderType}${element}-name-${index}` }
+              className="bg-white"
+            >
+              {name}
+            </p>
+          </div>
+          <div className="flex justify-between gap-6">
+            <h3 className="font-bold">Quantidade</h3>
+            <p
+              data-testid={ `${userType}_${orderType}${element}-quantity-${index}` }
+              className="bg-white"
+            >
+              {quantity}
+            </p>
+          </div>
+          <div className="flex justify-between gap-6">
+            <h3 className="font-bold">Valor Unitário</h3>
+            <p
+              data-testid={ `${userType}_${orderType}${element}-unit-price-${index}` }
+              className="bg-white"
+            >
+              {convert(price)}
+            </p>
+          </div>
+          <div className="flex justify-between gap-6">
+            <h3 className="font-bold">Sub-total</h3>
+            <p
+              data-testid={ `${userType}_${orderType}${element}-sub-total-${index}` }
+              className="bg-white"
+            >
+              {convert(quantity * price)}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

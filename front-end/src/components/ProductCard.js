@@ -23,50 +23,81 @@ export default function ProductCard({ id, name, price, image, add, sub, handleQt
   };
 
   return (
-    <div className="white">
-      <span data-testid={ `customer_products__element-card-price-${id}` }>
+    <div
+      className="
+      card
+      w-80
+      bg-base-100
+      shadow-xl
+      border-2
+      border-d-orange
+      relative
+      mb-4
+    "
+    >
+      <span
+        className="
+        badge
+        badge-lg
+        absolute
+        top-5
+        left-5
+        "
+        data-testid={ `customer_products__element-card-price-${id}` }
+      >
         {convertedPrice}
       </span>
-      <div>
-        <div>
-          <img
-            data-testid={ `customer_products__img-card-bg-image-${id}` }
-            src={ image }
-            alt={ name }
-            width="200"
-            height="200"
-          />
-        </div>
-        <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
-      </div>
-      <div>
-        <button
-          type="button"
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
-          onClick={ () => subItem({ id, name, price }) }
-          disabled={ quantity === 0 }
-
-        >
-          -
-
-        </button>
-        <input
-          type="number"
-          placeholder="0"
-          value={ quantity }
-          data-testid={ `customer_products__input-card-quantity-${id}` }
-          onChange={ (ev) => handleValue(ev) }
+      <div className="flex justify-center">
+        <img
+          className="w-52 h-52"
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+          src={ image }
+          alt={ name }
         />
-
-        <button
-          type="button"
-          data-testid={ `customer_products__button-card-add-item-${id}` }
-          onClick={ () => addItem({ id, name, price }) }
+      </div>
+      <div className="p-5">
+        <h5
+          className="
+          mb-2
+          text-2xl
+          font-bold
+          tracking-tight
+          text-gray-900
+          dark:text-white
+          text-center"
         >
-          +
-
-        </button>
-
+          {name}
+        </h5>
+        <div className="flex justify-center">
+          <button
+            className="btn"
+            type="button"
+            data-testid={ `customer_products__button-card-rm-item-${id}` }
+            onClick={ () => subItem({ id, name, price }) }
+            disabled={ quantity === 0 }
+          >
+            -
+          </button>
+          <input
+            className="
+            w-8
+            text-center
+            appearance-none"
+            type="number"
+            placeholder="0"
+            value={ quantity }
+            data-testid={ `customer_products__input-card-quantity-${id}` }
+            onChange={ (ev) => handleValue(ev) }
+          />
+          <button
+            className="btn"
+            type="button"
+            data-testid={ `customer_products__button-card-add-item-${id}` }
+            onClick={ () => addItem({ id, name, price }) }
+          >
+            +
+          </button>
+        </div>
       </div>
     </div>
   );
