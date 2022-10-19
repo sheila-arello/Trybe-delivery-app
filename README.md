@@ -24,18 +24,24 @@ Projeto em grupo desenvolvido durante módulo de backend na Trybe | set/2022.
     <!-- ![Exemplo app front](assets/front-example.png) -->
 
   O app de delivery tem como foco melhorar a vida do usuario que pode, a qualquer momento, ter sua bebida entregue em casa.
+  
+  O objetivo foi criar e integrar tanto o back-end quanto o front-end, criando uma plataforma de delivery de cerveja. 🍻
+
 </details>
 <details>
   <summary markdown="span"><strong>O que foi desenvolvido</strong></summary><br />
 
   Para esse projeto, foi desenvolvida uma API RESTful com aplicações frontend e backend integradas através do docker-compose, que consomem um banco de dados.
 
-  Construí um __backend dockerizado utilizando modelagem de dados através do Sequelize__.
+  Construímos o front-end em __React utilizando context e a biblioteca tailwind para estilizar o app__. O back-end foi __desenvolvido em Javascript com Node.JS e como banco de dados, modelagem de dados através do ORM Sequelize__.
 
-  Foram respeitadas regras de negócio pré definidas pela Trybe, onde precisei garantir que a API desenvolvida fosse capaz de ser consumida pelo frontend provido dentro do projeto.
+  Foram respeitadas regras de negócio pré definidas pela Trybe para todo o projeto.
   
-  Destaco aqui, uma das regras principais nesse desenvolvimento. Para adicionar uma partida ou fazer alterações, o usuário deve estar logado. __Essa verificação é feita através de um token válido.__
-  
+  Destaco aqui as funcionalidades do projeto desenvolvidas por mim;
+    
+    - backend: toda a rota de customer incluindo; getProductById, getAllProducts, getAllSellers, getOrderByOrderId, getOrdersByCustomerId, createSale, update
+    - frontend: componentes e pages; CheckoutCard, OrderHeader, Checkout
+    
   Além disso, as tabelas `teams` e `matches` contam com um relacionamento para executar as devidas atualizações das partidas.
 
 </details>
