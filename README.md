@@ -52,6 +52,7 @@ Projeto em **grupo** desenvolvido durante módulo de backend na Trybe | set/2022
 * Trabalhar em equipe já é por si só um desafio; posso dizer que obtivemos total sucesso, conseguimos formar uma equipe coesa e colaborativa onde a pro atividade foi um destaque.
 * Os conceitos nas stacks já eram conhecidos, ressalvo aqui o engajamento da equipe quando surgia um bug ou dificuldade em algum requisito 
 * Um dos desafios foi lidar com os testes da Trybe pois alguns requisitos não estavam suficientemente claros e necessitava de entendimento dos testes para serem concluidos
+* Resgatar o React, pois estávamos há alguns meses só trabalhando com backend
 </details>
 
 ## :woman_technologist: Habilidades Desenvolvidas
@@ -96,6 +97,8 @@ Projeto em **grupo** desenvolvido durante módulo de backend na Trybe | set/2022
 * dotenv
 * express
 * express-async-errors
+* React
+* Tailwind Css
   
 </details>
 <details>
