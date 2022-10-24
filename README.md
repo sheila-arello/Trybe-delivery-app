@@ -1,5 +1,3 @@
-# 🚧 README em construção 🚧
-
 <!-- Olá, Tryber!
 
 Esse é apenas um arquivo inicial para o README do seu projeto.
@@ -15,7 +13,7 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 -->
 
 # 🍻 Delivery App 🍻
-Projeto em grupo desenvolvido durante módulo de backend na Trybe | set/2022.
+Projeto em **grupo** desenvolvido durante módulo de backend na Trybe | set/2022.
 
 ## :page_with_curl: Sobre o Projeto
 
@@ -33,22 +31,17 @@ Projeto em grupo desenvolvido durante módulo de backend na Trybe | set/2022.
 
   Para esse projeto, foi desenvolvida uma API RESTful com aplicações frontend e backend integradas através do docker-compose, que consomem um banco de dados.
 
-  Construímos o front-end em __React utilizando context e a biblioteca tailwind para estilizar o app__. O back-end foi __desenvolvido em Javascript com Node.JS e como banco de dados, modelagem de dados através do ORM Sequelize__.
-
-  Foram respeitadas regras de negócio pré definidas pela Trybe para todo o projeto.
+  Construímos o front-end em __React utilizando context e a biblioteca tailwind para estilizar o app__. O back-end foi __desenvolvido em Javascript com Node.JS e banco de dados MySQL com modelagem de dados através do ORM Sequelize__.
   
-  Destaco aqui as funcionalidades do projeto desenvolvidas por mim;
-    
-    - backend: toda a rota de customer incluindo; getProductById, getAllProducts, getAllSellers, getOrderByOrderId, getOrdersByCustomerId, createSale, update
-    - frontend: componentes e pages; CheckoutCard, OrderHeader, Checkout
-    
-  Além disso, as tabelas `teams` e `matches` contam com um relacionamento para executar as devidas atualizações das partidas.
 
 </details>
 <details>
 <summary><strong>Observações</strong></summary><br />
   
-* Para esse projeto, foi diponibilizado pela Trybe toda a parte de frontend, sendo minha responsabilidade a criação do backend.
+* Destaco aqui as funcionalidades do projeto desenvolvidas por mim;    
+  * backend: toda a rota de customer incluindo; getProductById, getAllProducts, getAllSellers, getOrderByOrderId, getOrdersByCustomerId, createSale, update
+  * frontend: componentes e pages; CheckoutCard, OrderHeader, Checkout
+  
 * O projeto foi desenvolvido com base em requisitos definidos pela Trybe dentro de um tempo pré determinado.
 </details>
 
@@ -56,9 +49,9 @@ Projeto em grupo desenvolvido durante módulo de backend na Trybe | set/2022.
 <details>
 <summary><strong>Principais Desafios</strong></summary><br />
   
-* Utilização do typescript com POO: projeto referencia para firmar esses conceitos
-* Conceitos de __SOLID__: desenvolver o projeto buscando utilizar ao máximo esses conceitos.
-* LeaderBoard: Estruturar uma __query SQL__ para que, em uma única requisição, retornasse a classificação geral dos jogos.
+* Trabalhar em equipe já é por si só um desafio; posso dizer que obtivemos total sucesso, conseguimos formar uma equipe coesa e colaborativa onde a pro atividade foi um destaque.
+* Os conceitos nas stacks já eram conhecidos, ressalvo aqui o engajamento da equipe quando surgia um bug ou dificuldade em algum requisito 
+* Um dos desafios foi lidar com os testes da Trybe pois alguns requisitos não estavam suficientemente claros e necessitava de entendimento dos testes para serem concluidos
 </details>
 
 ## :woman_technologist: Habilidades Desenvolvidas
@@ -66,19 +59,21 @@ Projeto em grupo desenvolvido durante módulo de backend na Trybe | set/2022.
 <summary><strong>Hard Skills</strong></summary><br />
   
 * Principais hard skills desenvolvidas:
-  * TypeScript
-  * POO
+  * Mais um projeto para reforçar JavaScript com Node.JS
+  * arquitetura MSC
   * SOLID
+  
 </details>
 
 <details>
 <summary><strong>Soft Skills</strong></summary><br />
   
 * Inteligência Emocional
-* Autoliderança
+* Trabalho em Equipe
+* Colaboração
+* Comunicação Assertiva
 * Gestão do Tempo
-* Compartilhar conhecimentos com os demais alunos da Trybe
-* Recorrer a mentorias para esclarecimento de dúvidas
+* Compartilhar conhecimentos com a equipe
 </details>
 
 ## :memo: Metodologias
@@ -86,8 +81,8 @@ Projeto em grupo desenvolvido durante módulo de backend na Trybe | set/2022.
 <summary><strong>Metodologias utilizadas</strong></summary><br />
 
 * SOLID
-* POO
 * AGILE
+* Arquitetura MSC
 </details>
 
 ## :hammer_and_wrench: Ferramentas
@@ -95,7 +90,7 @@ Projeto em grupo desenvolvido durante módulo de backend na Trybe | set/2022.
 <details>
 <summary><strong>Basicas</strong></summary><br />
   
-* TypeScript
+* JavaScript
 * Node.js
 * cors
 * dotenv
@@ -105,8 +100,7 @@ Projeto em grupo desenvolvido durante módulo de backend na Trybe | set/2022.
 </details>
 <details>
 <summary><strong>Validações</strong></summary><br />
-  
-* bcryptjs
+
 * JWT
 * Joi
 </details>
@@ -119,17 +113,18 @@ Projeto em grupo desenvolvido durante módulo de backend na Trybe | set/2022.
 <details>
 <summary><strong>Testes</strong></summary><br />
   
-* Jest
+* Chai/ chai-http
 * Mocha
-* Chai
+* Sinon
+* NYC
 </details>
 
 ## 📈 Evolução do projeto
 <details>
 <summary><strong>Metodologias utilizadas</strong></summary><br />
 
-* 
-* 
+* Necessita refatoração
+* Limpeza do Código
 * testes: atingir cobertura de 100%
 </details>
 
