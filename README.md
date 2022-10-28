@@ -24,7 +24,10 @@ Projeto em **grupo** desenvolvido durante módulo de backend na Trybe | set/2022
   O app de delivery tem como foco melhorar a vida do usuario que pode, a qualquer momento, ter sua bebida entregue em casa.
   
   O objetivo foi criar e integrar tanto o back-end quanto o front-end, criando uma plataforma de delivery de cerveja. 🍻
-
+  <div>
+    <img align="center" height=400 alt="Delivery" src="https://github.com/sheila-arello/Trybe-delivery-app/blob/main/mobile_1.gif"/>
+    <img align="center" height=400 alt="Delivery" src="https://github.com/sheila-arello/Trybe-delivery-app/blob/main/mobile_2.gif"/>
+  </div>
 </details>
 <details>
   <summary markdown="span"><strong>O que foi desenvolvido</strong></summary><br />
@@ -32,7 +35,10 @@ Projeto em **grupo** desenvolvido durante módulo de backend na Trybe | set/2022
   Para esse projeto, foi desenvolvida uma API RESTful com aplicações frontend e backend integradas através do docker-compose, que consomem um banco de dados.
 
   Construímos o front-end em __React utilizando context e a biblioteca tailwind para estilizar o app__. O back-end foi __desenvolvido em Javascript com Node.JS e banco de dados MySQL com modelagem de dados através do ORM Sequelize__.
-  
+
+  <div>
+    <img align="center" height=400 alt="Delivery" src="https://github.com/sheila-arello/Trybe-delivery-app/blob/main/eer.png"/>
+  </div>
 
 </details>
 <details>
@@ -59,7 +65,7 @@ Projeto em **grupo** desenvolvido durante módulo de backend na Trybe | set/2022
 <details>
 <summary><strong>Hard Skills</strong></summary><br />
   
-* Principais hard skills desenvolvidas:
+Principais hard skills desenvolvidas:
   * Mais um projeto para reforçar JavaScript com Node.JS
   * arquitetura MSC
   * SOLID
@@ -124,7 +130,7 @@ Projeto em **grupo** desenvolvido durante módulo de backend na Trybe | set/2022
 
 ## 📈 Evolução do projeto
 <details>
-<summary><strong>Metodologias utilizadas</strong></summary><br />
+<summary><strong>ToDo's</strong></summary><br />
 
 * Necessita refatoração
 * Limpeza do Código
